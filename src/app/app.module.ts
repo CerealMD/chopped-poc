@@ -8,12 +8,14 @@ import { MainModule } from './main/main.module';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddNewAnswerPopUpComponent } from './background-components/components/add-new-answer-pop-up/add-new-answer-pop-up.component';
 import { AddNewIngredientPopUpComponent } from './background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
+import { ErrorPopUpComponent } from './background-components/components/error-pop-up/error-pop-up.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddNewAnswerPopUpComponent,
-    AddNewIngredientPopUpComponent
+    AddNewIngredientPopUpComponent,
+    ErrorPopUpComponent
   ],
   imports: [
     BrowserModule,

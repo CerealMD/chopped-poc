@@ -1,1 +1,8 @@
-<p>add-new-ingredient-pop-up works!</p>
+<mat-form-field appearance="fill">
+  <mat-label>New Ingredient</mat-label>
+  <input [(ngModel)]="newVariable" matInput />
+</mat-form-field>
+<div style="text-align: center;">
+<button class="marginLeftItem" mat-raised-button (click)="sumbitAnswer()">Submit</button>
+<button style="margin-left: 29%;" class="marginLeftItem" mat-raised-button matDialogClose>Close</button>
+</div>

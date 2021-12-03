@@ -1,1 +1,14 @@
-<p>add-new-answer-pop-up works!</p>
+<div style="text-align: center;"> 
+  <mat-form-field appearance="fill">
+    <mat-label>Add your Answer</mat-label>
+    <textarea [(ngModel)]="newVariable" matInput ></textarea>
+  </mat-form-field>
+  <mat-form-field appearance="fill">
+    <mat-label>Username</mat-label>
+    <input style="height: 37px;"  [(ngModel)]="userName" matInput />
+  </mat-form-field>
+</div>
+<div style="text-align: center;">
+  <button class="marginLeftItem" mat-raised-button (click)="sumbitAnswer()">Submit</button>
+  <button style="margin-left: 42%;" class="marginLeftItem" mat-raised-button matDialogClose>Close</button>
+</div>

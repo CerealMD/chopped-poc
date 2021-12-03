@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
+import { Router } from '@angular/router';
 import { AddNewAnswerPopUpComponent } from 'src/app/background-components/components/add-new-answer-pop-up/add-new-answer-pop-up.component';
 import { AddNewIngredientPopUpComponent } from 'src/app/background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
 
@@ -9,6 +10,7 @@ import { AddNewIngredientPopUpComponent } from 'src/app/background-components/co
   styleUrls: ['./landing-page.component.css'],
 })
 export class LandingPageComponent implements OnInit {
+  // Add code to get this list from Amazon
   ingredientsList = [
     'Chicken',
     'Turkey',
@@ -35,7 +37,7 @@ export class LandingPageComponent implements OnInit {
   numbers: any;
   showItems = false;
   joke;
-  constructor(public dialog: MatDialog) {}
+  constructor(public dialog: MatDialog, public router: Router) {}
 
   ngOnInit(): void {
     this.numbers = Array.from(Array(16), (x, i) => i);
@@ -78,8 +80,9 @@ export class LandingPageComponent implements OnInit {
       {
         data: {
           message: 'hello',
-          currentIngredients: this.ingredientsList,
+          currentIngredients: this.ingredientsList
         },
+        disableClose: true
       }
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
@@ -87,13 +90,16 @@ export class LandingPageComponent implements OnInit {
     });
   }
   addResponse() {
+    console.log(this.ingredientsList.slice(0,this.selectedValue))
+    console.log(this.ingredientsList.slice(0,this.selectedValue))
     const addResponseDialogRef = this.dialog.open(
       AddNewAnswerPopUpComponent,
       {
         data: {
           message: 'hello',
-          currentIngredients: this.ingredientsList,
+          currentIngredients: this.ingredientsList.slice(0, this.selectedValue)
         },
+        disableClose: true
       }
     );
     addResponseDialogRef.afterClosed().subscribe((response) => {
@@ -106,5 +112,8 @@ export class LandingPageComponent implements OnInit {
     } else {
       this.joke = true;
     }
+  }
+  toAnswers(){
+    this.router.navigate(['answer-view']);
   }
 }
