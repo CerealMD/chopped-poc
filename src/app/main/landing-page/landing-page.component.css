@@ -1,0 +1,59 @@
+.mainContainer{
+    text-align: center;
+    padding: 4%;
+    font-size: 3vh;
+}
+.glow {
+    font-size: 80px;
+    color: #fff;
+    text-align: center;
+    animation: glow 1s ease-in-out infinite alternate;
+  }
+  
+  @keyframes glow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
+    }
+    
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
+    }
+  }
+
+  .listGlow {
+    font-size: 35px;
+    color: #fff;
+    text-align: center;
+    animation: listGlow 1s ease-in-out infinite alternate;
+  }
+  
+  @keyframes listGlow {
+    from {
+      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2a00e6, 0 0 40px #2a00e6, 0 0 50px #2a00e6, 0 0 60px #2a00e6, 0 0 70px #2a00e6;
+    }
+    
+    to {
+      text-shadow: 0 0 20px #fff, 0 0 30px #4d59ff, 0 0 40px #4d59ff, 0 0 50px #4d59ff, 0 0 60px #4d59ff, 0 0 70px #4d59ff, 0 0 80px #4d59ff;
+    }
+  }
+  .numDropDown{
+      float: right
+  }
+  .marginLeftItem{
+      width: 195px;
+      margin: 1%;
+  }
+  .showListItems{
+      text-align: center;
+  }
+  .newSection{
+      padding-top: 2%;
+      padding-bottom: 4%;
+  }
+  .itemSpacing{
+      padding: 2% 0px;
+  }
+  .showButton{
+    margin: 5%;
+    text-align: center;
+  }

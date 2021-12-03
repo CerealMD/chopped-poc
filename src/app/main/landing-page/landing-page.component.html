@@ -1,0 +1,74 @@
+<div class="mainContainer">Quinn Cooks Prep Work</div>
+<!-- <div class="isQuinn">
+  <button mat-raised-button (click)="haHafU()">
+    Are you Quinn?
+  </button>
+</div>
+<div *ngIf="joke" class='glow'>Fuck You QUINN</div> -->
+<div>
+  <div class="showButton" *ngIf="!showItems; else elseBlock">
+    <button
+      class="marginLeftItem"
+      mat-raised-button
+      (click)="switchShow()"
+    >
+      Show the Ingredients
+    </button>
+    <mat-form-field class="marginLeftItem" appearance="fill">
+      <mat-label># of Ingredients</mat-label>
+      <mat-select
+        (selectionChange)="newSelect($event)"
+        [(ngModel)]="selectedValue"
+      >
+        <mat-option *ngFor="let number of numbers" [value]="number">
+          {{ number }}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+  <div>
+    <ng-template #elseBlock>
+      <div class="showButton">
+        <button
+          class="marginLeftItem"
+          mat-raised-button
+          (click)="switchShow()"
+        >
+          Hide the Ingredients
+        </button>
+        <mat-form-field class="marginLeftItem" appearance="fill">
+          <mat-label># of Ingredients</mat-label>
+          <mat-select
+            (selectionChange)="newSelect($event)"
+            [(ngModel)]="selectedValue"
+          >
+            <mat-option *ngFor="let number of numbers" [value]="number">
+              {{ number }}
+            </mat-option>
+          </mat-select>
+        </mat-form-field>
+      </div>
+    </ng-template>
+  </div>
+
+  <div class="showListItems listGlow" *ngIf="showItems">
+    <div *ngFor="let item of ingredientsList; let i = index">
+      <div class="itemSpacing" *ngIf="i < selectedValue">{{ item }}</div>
+    </div>
+    <button mat-raised-button (click)="shuffle(ingredientsList)">
+      Shuffle Ingredients
+    </button>
+  </div>
+</div>
+<div class="newSection showButton">
+  <button
+    class="marginLeftItem"
+    mat-raised-button
+    (click)="addIngredient()"
+  >
+    Add New Ingredient
+  </button>
+  <button class="marginLeftItem" mat-raised-button (click)="addResponse()">
+    Add New Ingredient
+  </button>
+</div>

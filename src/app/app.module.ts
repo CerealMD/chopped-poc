@@ -3,14 +3,24 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
+import { SharedModule } from './background-components/shared-module';
+import { MainModule } from './main/main.module';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { AddNewAnswerPopUpComponent } from './background-components/components/add-new-answer-pop-up/add-new-answer-pop-up.component';
+import { AddNewIngredientPopUpComponent } from './background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    AddNewAnswerPopUpComponent,
+    AddNewIngredientPopUpComponent
   ],
   imports: [
     BrowserModule,
-    AppRoutingModule
+    AppRoutingModule,
+    MainModule,
+    SharedModule,
+    BrowserAnimationsModule
   ],
   providers: [],
   bootstrap: [AppComponent]
