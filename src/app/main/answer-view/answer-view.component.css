@@ -1,0 +1,21 @@
+.widthFull{
+    width: 100%;
+}
+.ninty{
+    width: 90%;
+    margin: 0px 5%;
+}
+.half{
+    width: 50%;
+}
+:host ::ng-deep th.mat-header-cell, td.mat-cell, td.mat-footer-cell{
+    border-bottom-style: none;
+}
+.newSection{
+    padding-top: 2%;
+    padding-bottom: 4%;
+}
+.showButton{
+    margin: 5%;
+    text-align: center;
+  }

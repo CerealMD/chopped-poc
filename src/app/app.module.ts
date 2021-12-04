@@ -11,13 +11,15 @@ import { AddNewIngredientPopUpComponent } from './background-components/componen
 import { ErrorPopUpComponent } from './background-components/components/error-pop-up/error-pop-up.component';
 import { dbConnectionService } from './background-components/services/callDbConnection';
 import { HttpClientModule } from '@angular/common/http';
+import { AnswerPerOptionComponent } from './background-components/components/answer-per-option/answer-per-option.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     AddNewAnswerPopUpComponent,
     AddNewIngredientPopUpComponent,
-    ErrorPopUpComponent
+    ErrorPopUpComponent,
+    AnswerPerOptionComponent
   ],
   imports: [
     BrowserModule,

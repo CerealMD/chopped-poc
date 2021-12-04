@@ -1,5 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
+import { Subject, takeUntil } from 'rxjs';
+import { dbConnectionService } from '../../services/callDbConnection';
 import { ErrorPopUpComponent } from '../error-pop-up/error-pop-up.component';
 
 @Component({
@@ -15,7 +17,9 @@ export class AddNewAnswerPopUpComponent implements OnInit {
   displayList: any;
   searchTerm;
   currentSelectedIngreds: any;
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog) { }
+  unsubscribe: Subject<any> = new Subject();
+
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog,private dbConnection: dbConnectionService) { }
 
   ngOnInit(): void {
     //Add code to add values to aws codebase
@@ -27,8 +31,18 @@ export class AddNewAnswerPopUpComponent implements OnInit {
   sumbitAnswer(){
     if(this.userName != '' && this.userName != undefined){
       if(this.newVariable != '' && this.newVariable != undefined){
-        console.log(this.newVariable)
-        console.log(this.userName)
+        let newRes = {
+          username: this.userName,
+          answer: this.newVariable,
+          ingredients: this.currentIngreds
+        }
+        this.dbConnection
+        .PostItem2Response(newRes)
+        .pipe(takeUntil(this.unsubscribe))
+        .subscribe((data) => {
+          console.log(data);
+        });
+      this.dialog.closeAll();
       }
       else{
         const addIngredientDialogRef = this.dialog.open(
@@ -89,5 +103,9 @@ return this.fullList.filter(option => option.toLowerCase().startsWith(filter));
 }
 clearSearch(){
   this.onKey('')
+}
+ngDestroy() {
+  // this.unsubscribe.next();
+  this.unsubscribe.complete();
 }
 }

@@ -13,8 +13,7 @@
       (selectionChange)="newSelect($event)"
       [(ngModel)]="currentIngreds" multiple
     >
-    <input (keyup)="onKey(searchTerm)"  [(ngModel)]="searchTerm">
-      <mat-option (click)="clearSearch()" *ngFor="let item of displayList" [value]="item">
+      <mat-option *ngFor="let item of displayList" [value]="item">
         {{ item }}
       </mat-option>
     </mat-select>

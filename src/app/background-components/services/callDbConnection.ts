@@ -21,23 +21,18 @@ export class dbConnectionService {
     this.httpOptions.headers.append('Accept', 'application/json');
   }
 
-  getList() {
-    return this.http
-      .get<any>(
-        'https://o2d6f7tcwa.execute-api.us-east-2.amazonaws.com/dev/ingredients'
-      )
-      .subscribe((data) => {
-        this.posts = data;
-      });
-  }
-
   getItems(): Observable<foodItem[]> {
     const url =
       'https://o2d6f7tcwa.execute-api.us-east-2.amazonaws.com/dev/ingredients';
 
     return this.http.get<foodItem[]>(url);
   }
+  getAnswers(): Observable<responseItem[]> {
+    const url =
+      'https://o2d6f7tcwa.execute-api.us-east-2.amazonaws.com/dev/answers';
 
+    return this.http.get<responseItem[]>(url);
+  }
   PostItem2List(string) {
     const body = {
       ingredient: string,
@@ -46,6 +41,18 @@ export class dbConnectionService {
     return this.http
       .post(
         'https://o2d6f7tcwa.execute-api.us-east-2.amazonaws.com/dev/ingredients',
+        body,
+        this.httpOptions
+      )
+      .pipe(catchError(this.handleError));
+  }
+  PostItem2Response(obj) {
+   let stringParsedObj =  JSON.parse(JSON.stringify(obj))
+    const body = stringParsedObj
+    console.log(body);
+    return this.http
+      .post(
+        'https://o2d6f7tcwa.execute-api.us-east-2.amazonaws.com/dev/answers',
         body,
         this.httpOptions
       )
@@ -62,6 +69,17 @@ export class dbConnectionService {
   }
 }
 export class foodItem {
+  public statusFlag: boolean;
+  public statusCode: string;
+  public response: object;
+
+  constructor(statusFlag: boolean, statusCode: string, response: object) {
+    this.statusFlag = statusFlag;
+    this.statusCode = statusCode;
+    this.response = response;
+  }
+}
+export class responseItem {
   public statusFlag: boolean;
   public statusCode: string;
   public response: object;

@@ -1,5 +1,26 @@
-<p>answer-view works!</p>
-<div>
+<div class="widthFull">
+  <mat-form-field class="ninty" appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+  </mat-form-field>
+  <table class="ninty" mat-table [dataSource]="dataSource">
+    <ng-container matColumnDef="username">
+      <th class="half" mat-header-cell *matHeaderCellDef > Username </th>
+      <td class="half" mat-cell *matCellDef="let element"> {{element.username}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="itemsList">
+      <th class="half" mat-header-cell *matHeaderCellDef > Ingredients </th>
+      <td class="half" mat-cell *matCellDef="let element"> {{element.ingredients}} </td>
+    </ng-container>
+    <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+    <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="popUpAnswer(row)"></mat-row>
+  </table>
+  <mat-paginator class="ninty" [pageSizeOptions]="[5, 1, 10, 20]"
+                 showFirstLastButtons >
+  </mat-paginator>
+</div>
+<div class="newSection showButton">
     <button mat-raised-button (click)="toHome()">
       Home
     </button>
