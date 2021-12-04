@@ -1,8 +1,10 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { AddNewAnswerPopUpComponent } from 'src/app/background-components/components/add-new-answer-pop-up/add-new-answer-pop-up.component';
 import { AddNewIngredientPopUpComponent } from 'src/app/background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
+import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 
 @Component({
   selector: 'app-landing-page',
@@ -10,39 +12,41 @@ import { AddNewIngredientPopUpComponent } from 'src/app/background-components/co
   styleUrls: ['./landing-page.component.css'],
 })
 export class LandingPageComponent implements OnInit {
-  // Add code to get this list from Amazon
-  ingredientsList = [
-    'Chicken',
-    'Turkey',
-    'Salmon',
-    'Collard Greens',
-    'Kumquats',
-    'Quail',
-    'Black Garlic',
-    'Tomatillos',
-    'Rhubarb',
-    'Baby Fennel',
-    'Cactus Pears',
-    'Zucchini',
-    'Strawberries',
-    'Avocados',
-    'Escarole',
-    'Duck Breast',
-    'Rainbow Chard',
-    'Jicama',
-    'Blueberries',
-    'Pineapple',
-  ];
+  ingredientsList: any = [];
   selectedValue: any;
   numbers: any;
   showItems = false;
   joke;
-  constructor(public dialog: MatDialog, public router: Router) {}
+  ingredientsLists: any;
+  foodItem: any;
+  currentFoods: any;
+  unsubscribe: Subject<any> = new Subject();
+  constructor(
+    public dialog: MatDialog,
+    public router: Router,
+    private dbConnection: dbConnectionService
+  ) {}
 
   ngOnInit(): void {
-    this.numbers = Array.from(Array(16), (x, i) => i);
-    console.log(this.numbers);
-    this.shuffle(this.ingredientsList);
+    this.dbConnection
+      .getItems()
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((response) => {
+        let data = JSON.parse(JSON.stringify(response));
+        // console.log(data);
+        this.currentFoods = data.response.Items;
+        // console.log(this.currentFoods);
+        for (let x of this.currentFoods) {
+          this.ingredientsList.push(x.ingredient);
+        }
+        // console.log(this.ingredientsList);
+        this.numbers = Array.from(
+          Array(this.ingredientsList.length + 1),
+          (x, i) => i
+        );
+        // console.log(this.numbers);
+        this.shuffle(this.ingredientsList);
+      });
   }
   newSelect(event) {
     console.log(event);
@@ -81,41 +85,52 @@ export class LandingPageComponent implements OnInit {
       {
         data: {
           message: 'hello',
-          currentIngredients: this.ingredientsList
+          currentIngredients: this.ingredientsList,
         },
-        disableClose: true
+        disableClose: true,
       }
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
       console.log(data);
+      this.ingredientsList = [];
+      this.ngOnInit();
     });
   }
   addResponse() {
-    console.log(this.ingredientsList.slice(0,this.selectedValue))
-    console.log(this.ingredientsList.slice(0,this.selectedValue))
-    const addResponseDialogRef = this.dialog.open(
-      AddNewAnswerPopUpComponent,
-      {
-        data: {
-          message: 'hello',
-          currentIngredients: this.ingredientsList.slice(0, this.selectedValue),
-          fullList: this.ingredientsList
-        },
-        disableClose: true
-      }
-    );
+    console.log(this.ingredientsList.slice(0, this.selectedValue));
+    console.log(this.ingredientsList.slice(0, this.selectedValue));
+    const addResponseDialogRef = this.dialog.open(AddNewAnswerPopUpComponent, {
+      data: {
+        message: 'hello',
+        currentIngredients: this.ingredientsList.slice(0, this.selectedValue),
+        fullList: this.ingredientsList,
+      },
+      disableClose: true,
+    });
     addResponseDialogRef.afterClosed().subscribe((response) => {
       console.log(response);
     });
   }
-  haHafU(){
+  haHafU() {
     if (this.joke) {
       this.joke = false;
     } else {
       this.joke = true;
     }
   }
-  toAnswers(){
+  toAnswers() {
     this.router.navigate(['answer-view']);
+  }
+}
+export class foodItem {
+  public statusFlag: boolean;
+  public statusCode: string;
+  public response: object;
+  unsubscribe: any;
+
+  constructor(statusFlag: boolean, statusCode: string, response: object) {
+    this.statusFlag = statusFlag;
+    this.statusCode = statusCode;
+    this.response = response;
   }
 }

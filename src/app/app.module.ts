@@ -9,6 +9,8 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { AddNewAnswerPopUpComponent } from './background-components/components/add-new-answer-pop-up/add-new-answer-pop-up.component';
 import { AddNewIngredientPopUpComponent } from './background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
 import { ErrorPopUpComponent } from './background-components/components/error-pop-up/error-pop-up.component';
+import { dbConnectionService } from './background-components/services/callDbConnection';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -22,7 +24,8 @@ import { ErrorPopUpComponent } from './background-components/components/error-po
     AppRoutingModule,
     MainModule,
     SharedModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    HttpClientModule 
   ],
   providers: [],
   bootstrap: [AppComponent]

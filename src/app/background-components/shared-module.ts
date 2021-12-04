@@ -91,7 +91,7 @@ import { FormsModule } from "@angular/forms";
         OverlayModule,
         PortalModule,
         ScrollingModule,
-        FormsModule],
+        FormsModule,],
     exports:[ 
         A11yModule,
         CdkAccordionModule,
