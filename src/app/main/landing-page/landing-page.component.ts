@@ -42,6 +42,7 @@ export class LandingPageComponent implements OnInit {
   ngOnInit(): void {
     this.numbers = Array.from(Array(16), (x, i) => i);
     console.log(this.numbers);
+    this.shuffle(this.ingredientsList);
   }
   newSelect(event) {
     console.log(event);
@@ -97,7 +98,8 @@ export class LandingPageComponent implements OnInit {
       {
         data: {
           message: 'hello',
-          currentIngredients: this.ingredientsList.slice(0, this.selectedValue)
+          currentIngredients: this.ingredientsList.slice(0, this.selectedValue),
+          fullList: this.ingredientsList
         },
         disableClose: true
       }

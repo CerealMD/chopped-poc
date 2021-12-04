@@ -45,8 +45,8 @@
     <div *ngFor="let item of ingredientsList; let i = index">
       <div class="itemSpacing" *ngIf="i < selectedValue">{{ item }}</div>
     </div>
-    <button mat-raised-button (click)="shuffle(ingredientsList)">
-      Shuffle Ingredients
+    <button *ngIf="selectedValue > 0" mat-raised-button (click)="shuffle(ingredientsList)">
+      Shuffle Ingredient(s)
     </button>
   </div>
 </div>
@@ -58,7 +58,7 @@
     Add New Response
   </button>
 </div>
-<div>
+<div class="newSection showButton">
   <button mat-raised-button (click)="toAnswers()">
     Check Answers
   </button>
