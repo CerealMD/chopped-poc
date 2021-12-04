@@ -2,14 +2,14 @@
   <span (click)="haHafU()"> Quinn </span> Cooks Prep Work
 </div>
 <div class="isQuinn"></div>
-<div *ngIf="joke" class="glow">F**k You Quinn</div>
+<!-- <div *ngIf="joke" class="glow">7</div> -->
 <div>
   <div class="showButton" *ngIf="!showItems; else elseBlock">
     <button class="marginLeftItem" mat-raised-button (click)="switchShow()">
       Show the Ingredients
     </button>
     <mat-form-field class="marginLeftItem" appearance="fill">
-      <mat-label># of Ingredients</mat-label>
+      <mat-label style="color: white;"># of Ingredients</mat-label>
       <mat-select
         (selectionChange)="newSelect($event)"
         [(ngModel)]="selectedValue"
@@ -27,10 +27,11 @@
           Hide the Ingredients
         </button>
         <mat-form-field class="marginLeftItem" appearance="fill">
-          <mat-label># of Ingredients</mat-label>
+          <mat-label style="color: white;"># of Ingredients</mat-label>
           <mat-select
             (selectionChange)="newSelect($event)"
             [(ngModel)]="selectedValue"
+            style="color: white;"
           >
             <mat-option *ngFor="let number of numbers" [value]="number">
               {{ number }}
@@ -41,11 +42,19 @@
     </ng-template>
   </div>
 
-  <div class="showListItems listGlow" *ngIf="showItems">
+  <div
+    class="showListItems"
+    style="font-size: 175%; color: white"
+    *ngIf="showItems"
+  >
     <div *ngFor="let item of ingredientsList; let i = index">
       <div class="itemSpacing" *ngIf="i < selectedValue">{{ item }}</div>
     </div>
-    <button *ngIf="selectedValue > 0" mat-raised-button (click)="shuffle(ingredientsList)">
+    <button
+      *ngIf="selectedValue > 0"
+      mat-raised-button
+      (click)="shuffle(ingredientsList)"
+    >
       Shuffle Ingredient(s)
     </button>
   </div>
@@ -59,7 +68,5 @@
   </button>
 </div>
 <div class="newSection showButton">
-  <button mat-raised-button (click)="toAnswers()">
-    Check Answers
-  </button>
+  <button mat-raised-button (click)="toAnswers()">Review Answers</button>
 </div>
