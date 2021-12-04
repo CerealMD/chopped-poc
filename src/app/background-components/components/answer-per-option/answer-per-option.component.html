@@ -1,15 +1,15 @@
 <div style="text-align: center;"> 
     <mat-form-field appearance="fill">
       <mat-label>Add your Answer</mat-label>
-      <textarea disabled [(ngModel)]="data.currentIngredients.answer" matInput style="height: 8vh; max-height: 33vh;"></textarea>
+      <textarea readonly [(ngModel)]="data.currentIngredients.answer" matInput style="height: 8vh; max-height: 33vh;"></textarea>
     </mat-form-field>
     <mat-form-field appearance="fill">
       <mat-label>Username</mat-label>
-      <input disabled  [(ngModel)]="data.currentIngredients.username" matInput style="height: 8vh;" />
+      <input readonly  [(ngModel)]="data.currentIngredients.username" matInput style="height: 8vh;" />
     </mat-form-field>
     <mat-form-field appearance="fill">
         <mat-label>Ingredients</mat-label>
-        <textarea disabled [(ngModel)]="data.currentIngredients.ingredients" matInput style="height: 8vh; max-height: 75px;"></textarea>
+        <textarea readonly [(ngModel)]="data.currentIngredients.ingredients" matInput style="height: 8vh; max-height: 75px;"></textarea>
       </mat-form-field>
   </div>
   <div style="text-align: center;">
