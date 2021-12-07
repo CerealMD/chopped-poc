@@ -23,6 +23,8 @@ export class AnswerViewComponent implements OnInit {
   dataSource;
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
+  showSpinner: any;
+  sub: any;
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -30,6 +32,7 @@ export class AnswerViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dbConnection.showSpinnerSub.next(true);
     this.dbConnection
       .getAnswers()
       .pipe(takeUntil(this.unsubscribe))
@@ -41,7 +44,12 @@ export class AnswerViewComponent implements OnInit {
         this.dataSource = new MatTableDataSource(this.allResponses);
         console.log(this.dataSource);
         this.dataSource.paginator = this.paginator;
+    this.dbConnection.showSpinnerSub.next(false);
       });
+      this.sub = this.dbConnection.showSpinnerSub.pipe(takeUntil(this.unsubscribe)).subscribe(spinner => {
+        this.showSpinner = spinner;
+        console.log(this.showSpinner)
+      })
   }
   ngAfterViewInit() {
     if(this.dataSource){

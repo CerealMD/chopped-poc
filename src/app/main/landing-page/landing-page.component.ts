@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { AddNewAnswerPopUpComponent } from 'src/app/background-components/components/add-new-answer-pop-up/add-new-answer-pop-up.component';
 import { AddNewIngredientPopUpComponent } from 'src/app/background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
+import { ErrorPopUpComponent } from 'src/app/background-components/components/error-pop-up/error-pop-up.component';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 
 @Component({
@@ -12,6 +13,7 @@ import { dbConnectionService } from 'src/app/background-components/services/call
   styleUrls: ['./landing-page.component.css'],
 })
 export class LandingPageComponent implements OnInit {
+  showSpinner =false;
   ingredientsList: any = [];
   selectedValue: any;
   numbers: any;
@@ -21,6 +23,7 @@ export class LandingPageComponent implements OnInit {
   foodItem: any;
   currentFoods: any;
   unsubscribe: Subject<any> = new Subject();
+  sub;
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -28,6 +31,7 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.dbConnection.showSpinnerSub.next(true);
     this.dbConnection
       .getItems()
       .pipe(takeUntil(this.unsubscribe))
@@ -47,6 +51,10 @@ export class LandingPageComponent implements OnInit {
         // console.log(this.numbers);
         this.shuffle(this.ingredientsList);
       });
+      this.sub = this.dbConnection.showSpinnerSub.pipe(takeUntil(this.unsubscribe)).subscribe(spinner => {
+        this.showSpinner = spinner;
+        console.log(this.showSpinner)
+      })
   }
   newSelect(event) {
     console.log(event);
@@ -54,13 +62,15 @@ export class LandingPageComponent implements OnInit {
   }
   switchShow() {
     // this.shuffle(this.ingredientsList);
-    if (this.showItems) {
-      this.showItems = false;
-    } else {
-      this.showItems = true;
-    }
+    // if (this.showItems) {
+    //   this.showItems = false;
+    // } else {
+    //   this.showItems = true;
+    // }
+    this.selectedValue = this.numbers.length + 1
   }
   shuffle(array) {
+    this.dbConnection.showSpinnerSub.next(true);
     let currentIndex = array.length,
       randomIndex;
 
@@ -76,7 +86,7 @@ export class LandingPageComponent implements OnInit {
         array[currentIndex],
       ];
     }
-
+    this.dbConnection.showSpinnerSub.next(false);
     return array;
   }
   addIngredient() {
@@ -91,9 +101,21 @@ export class LandingPageComponent implements OnInit {
       }
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
-      console.log(data);
-      this.ingredientsList = [];
-      this.ngOnInit();
+      const finished = this.dialog.open(
+        ErrorPopUpComponent,
+        {
+          data: {
+            message: 'New Ingredient added'
+          },
+          disableClose: true
+        }
+      );
+      finished.afterClosed().subscribe((response) => {
+        this.dbConnection.showSpinnerSub.next(true);
+        console.log(data);
+        this.ingredientsList = [];
+        this.ngOnInit();
+      });
     });
   }
   addResponse() {
@@ -108,6 +130,15 @@ export class LandingPageComponent implements OnInit {
       disableClose: true,
     });
     addResponseDialogRef.afterClosed().subscribe((response) => {
+      const finished = this.dialog.open(
+        ErrorPopUpComponent,
+        {
+          data: {
+            message: 'New Response added'
+          },
+          disableClose: true
+        }
+      );
       console.log(response);
     });
   }

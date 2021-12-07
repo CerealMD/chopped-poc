@@ -4,9 +4,10 @@ import {
   HttpHeaders,
 } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { catchError, Observable, of } from 'rxjs';
+import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class dbConnectionService {
+  public showSpinnerSub: BehaviorSubject<any> = new BehaviorSubject({})
   httpOptions = {
     headers: new HttpHeaders({ 'Content-type': 'application/json' }),
   };
