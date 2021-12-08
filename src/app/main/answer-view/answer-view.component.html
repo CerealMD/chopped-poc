@@ -1,7 +1,7 @@
 <div class="widthFull">
   <mat-form-field class="ninty" appearance="standard">
-    <mat-label>Filter</mat-label>
-    <input matInput (keyup)="applyFilter($event)" placeholder="Search" #input>
+    <mat-label style="color: white;">Filter</mat-label>
+    <input matInput style="color: white;" (keyup)="applyFilter($event)" placeholder="Search" #input>
   </mat-form-field>
   <table class="ninty" mat-table [dataSource]="dataSource">
     <ng-container matColumnDef="username">

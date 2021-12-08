@@ -6,7 +6,18 @@ import { AddNewAnswerPopUpComponent } from 'src/app/background-components/compon
 import { AddNewIngredientPopUpComponent } from 'src/app/background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
 import { ErrorPopUpComponent } from 'src/app/background-components/components/error-pop-up/error-pop-up.component';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
+export class foodItem {
+  public statusFlag: boolean;
+  public statusCode: string;
+  public response: object;
+  unsubscribe: any;
 
+  constructor(statusFlag: boolean, statusCode: string, response: object) {
+    this.statusFlag = statusFlag;
+    this.statusCode = statusCode;
+    this.response = response;
+  }
+}
 @Component({
   selector: 'app-landing-page',
   templateUrl: './landing-page.component.html',
@@ -24,6 +35,7 @@ export class LandingPageComponent implements OnInit {
   currentFoods: any;
   unsubscribe: Subject<any> = new Subject();
   sub;
+  url = 'www.google.com';
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -101,21 +113,24 @@ export class LandingPageComponent implements OnInit {
       }
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
-      const finished = this.dialog.open(
-        ErrorPopUpComponent,
-        {
-          data: {
-            message: 'New Ingredient added'
-          },
-          disableClose: true
-        }
-      );
-      finished.afterClosed().subscribe((response) => {
-        this.dbConnection.showSpinnerSub.next(true);
-        console.log(data);
-        this.ingredientsList = [];
-        this.ngOnInit();
-      });
+      if(data === undefined){
+        const finished = this.dialog.open(
+          ErrorPopUpComponent,
+          {
+            data: {
+              message: 'New Ingredient added'
+            },
+            disableClose: true
+          }
+        );
+        finished.afterClosed().subscribe((response) => {
+          this.dbConnection.showSpinnerSub.next(true);
+          console.log(data);
+          this.ingredientsList = [];
+          this.ngOnInit();
+        });
+      }
+     
     });
   }
   addResponse() {
@@ -130,16 +145,20 @@ export class LandingPageComponent implements OnInit {
       disableClose: true,
     });
     addResponseDialogRef.afterClosed().subscribe((response) => {
-      const finished = this.dialog.open(
-        ErrorPopUpComponent,
-        {
-          data: {
-            message: 'New Response added'
-          },
-          disableClose: true
-        }
-      );
-      console.log(response);
+      if(response === undefined){
+        console.log(response)
+        const finished = this.dialog.open(
+          ErrorPopUpComponent,
+          {
+            data: {
+              message: 'New Response added'
+            },
+            disableClose: true
+          }
+        );
+        console.log(response);
+      }
+     
     });
   }
   haHafU() {
@@ -152,16 +171,10 @@ export class LandingPageComponent implements OnInit {
   toAnswers() {
     this.router.navigate(['answer-view']);
   }
+  searchItem(item){
+    this.url = `https://www.google.com/search?q=` + item
+   // @ts-ignore: Object is possibly 'null'.
+    window.open(this.url, '_blank').focus();}
+  
 }
-export class foodItem {
-  public statusFlag: boolean;
-  public statusCode: string;
-  public response: object;
-  unsubscribe: any;
 
-  constructor(statusFlag: boolean, statusCode: string, response: object) {
-    this.statusFlag = statusFlag;
-    this.statusCode = statusCode;
-    this.response = response;
-  }
-}

@@ -20,6 +20,10 @@
     text-align: center;
   }
 
+  .mat-form-field-label {
+    color: white !important;
+}
+
   html,body{
     background:#000;
     margin:0;
