@@ -6,8 +6,11 @@
 <div>
   <div>
       <div class="showButton">
-        <button class="marginLeftItem" mat-raised-button (click)="switchShow()">
+        <button *ngIf="!showItems" class="marginLeftItem" mat-raised-button (click)="switchShow()">
           Show all Ingredients
+        </button>
+        <button *ngIf="showItems" class="marginLeftItem" mat-raised-button (click)="switchShow()">
+          Hide all Ingredients
         </button>
         <mat-form-field class="marginLeftItem" appearance="fill">
           <mat-label style="color: white;"># of Ingredients</mat-label>

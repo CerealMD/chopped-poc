@@ -73,13 +73,17 @@ export class LandingPageComponent implements OnInit {
     // this.shuffle(this.ingredientsList);
   }
   switchShow() {
-    // this.shuffle(this.ingredientsList);
-    // if (this.showItems) {
-    //   this.showItems = false;
-    // } else {
-    //   this.showItems = true;
-    // }
+    this.shuffle(this.ingredientsList);
+    if (this.showItems) {
+      this.showItems = false;
+    this.selectedValue = undefined
+
+    } else {
+      this.shuffleAlph(this.ingredientsList)
+      this.showItems = true;
     this.selectedValue = this.numbers.length + 1
+
+    }
   }
   shuffle(array) {
     this.dbConnection.showSpinnerSub.next(true);
@@ -114,6 +118,8 @@ export class LandingPageComponent implements OnInit {
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
       if(data === undefined){
+        this.showItems = false;
+          this.selectedValue = undefined
         const finished = this.dialog.open(
           ErrorPopUpComponent,
           {
@@ -123,12 +129,12 @@ export class LandingPageComponent implements OnInit {
             disableClose: true
           }
         );
-        finished.afterClosed().subscribe((response) => {
+       
           this.dbConnection.showSpinnerSub.next(true);
           console.log(data);
           this.ingredientsList = [];
           this.ngOnInit();
-        });
+     
       }
      
     });
@@ -174,7 +180,11 @@ export class LandingPageComponent implements OnInit {
   searchItem(item){
     this.url = `https://www.google.com/search?q=` + item
    // @ts-ignore: Object is possibly 'null'.
-    window.open(this.url, '_blank').focus();}
-  
+    window.open(this.url, '_blank').focus();
+  }
+  shuffleAlph(array) {
+    array.sort();
+    return array;
+  }
 }
 
