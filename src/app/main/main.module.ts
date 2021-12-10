@@ -4,12 +4,18 @@ import { MainComponent } from './main.component';
 import { LandingPageModule } from './landing-page/landing-page.module';
 import { SharedModule } from '../background-components/shared-module';
 import { AnswerViewModule } from './answer-view/answer-view.module';
+import { LoginPageComponent } from './login-page/login-page.component';
+import { FlavorParringComponent } from './flavor-parring/flavor-parring.component';
+import { HomeComponent } from './home/home.component';
 
 
 
 @NgModule({
   declarations: [
-    MainComponent
+    MainComponent,
+    LoginPageComponent,
+    FlavorParringComponent,
+    HomeComponent
   ],
   imports: [
     CommonModule,

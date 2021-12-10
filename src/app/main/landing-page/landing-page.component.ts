@@ -36,6 +36,7 @@ export class LandingPageComponent implements OnInit {
   unsubscribe: Subject<any> = new Subject();
   sub;
   url = 'www.google.com';
+  subusername: any;
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -43,6 +44,12 @@ export class LandingPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
+     console.log(username)
+      if(!username){
+        this.router.navigate(['login-page']);
+     }
+    })
     this.dbConnection.showSpinnerSub.next(true);
     this.dbConnection
       .getItems()
@@ -175,7 +182,7 @@ export class LandingPageComponent implements OnInit {
     }
   }
   toAnswers() {
-    this.router.navigate(['answer-view']);
+    this.router.navigate(['home']);
   }
   searchItem(item){
     this.url = `https://www.google.com/search?q=` + item

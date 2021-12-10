@@ -8,6 +8,8 @@ import { BehaviorSubject, catchError, Observable, of } from 'rxjs';
 @Injectable({ providedIn: 'root' })
 export class dbConnectionService {
   public showSpinnerSub: BehaviorSubject<any> = new BehaviorSubject({})
+  public username: BehaviorSubject<any> = new BehaviorSubject({})
+  public password: BehaviorSubject<any> = new BehaviorSubject({})
   httpOptions = {
     headers: new HttpHeaders({ 'Content-type': 'application/json' }),
   };

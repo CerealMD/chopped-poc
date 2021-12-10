@@ -25,6 +25,7 @@ export class AnswerViewComponent implements OnInit {
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   showSpinner: any;
   sub: any;
+  subusername: any;
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -32,6 +33,12 @@ export class AnswerViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
+    this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
+      console.log(username)
+       if(!username){
+         this.router.navigate(['login-page']);
+      }
+     })
     this.dbConnection.showSpinnerSub.next(true);
     this.dbConnection
       .getAnswers()
@@ -57,7 +64,7 @@ export class AnswerViewComponent implements OnInit {
     this.dataSource.sort = this.sort;}
   }
   toHome() {
-    this.router.navigate(['landing-page']);
+    this.router.navigate(['home']);
   }
   applyFilter(event: Event) {
     console.log(event)
