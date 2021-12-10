@@ -13,6 +13,7 @@ export class FlavorParringComponent implements OnInit {
 
   subusername: any;
   unsubscribe: Subject<any> = new Subject();
+  sub: any;
 
   constructor( public dialog: MatDialog,
     public router: Router,
@@ -25,7 +26,14 @@ export class FlavorParringComponent implements OnInit {
        if(!username){
          this.router.navigate(['login-page']);
       }
-     })
+     });
+     this.sub = this.dbConnection.showSpinnerSub.pipe(takeUntil(this.unsubscribe)).subscribe(spinner => {
+      this.showSpinner = spinner;
+      console.log(this.showSpinner)
+    });
+  }
+  showSpinner(showSpinner: any) {
+    throw new Error('Method not implemented.');
   }
 
 }

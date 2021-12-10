@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import { Subject, takeUntil } from 'rxjs';
 import { ErrorPopUpComponent } from 'src/app/background-components/components/error-pop-up/error-pop-up.component';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 
@@ -15,6 +16,9 @@ export class LoginPageComponent implements OnInit {
   password;
   baseusername = 'user';
   basepassword = 'password';
+  unsubscribe: Subject<any> = new Subject();
+  showSpinner: any;
+  sub: any;
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -23,17 +27,29 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
     console.log(this.backgroundimg);
+    this.sub = this.dbConnection.showSpinnerSub
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((spinner) => {
+        this.showSpinner = spinner;
+        console.log(this.showSpinner);
+      });
   }
 
   login() {
-    console.log();
+    this.dbConnection.showSpinnerSub.next(true);
     if (this.username !== '' && this.username !== undefined) {
       if (this.password !== '' && this.password !== undefined) {
-        if (this.username === this.baseusername && this.password === this.basepassword) {
-            this.dbConnection.username.next(this.username);
-            this.router.navigate(['home']);
-        }
-        else{
+        if (
+          this.username === this.baseusername &&
+          this.password === this.basepassword
+        ) {
+          this.dbConnection.username.next(this.username);
+          this.dbConnection.showSpinnerSub.next(false);
+
+          this.router.navigate(['home']);
+        } else {
+          this.dbConnection.showSpinnerSub.next(false);
+
           const finished = this.dialog.open(ErrorPopUpComponent, {
             data: {
               message: 'Username: user, Password:password',
@@ -42,6 +58,8 @@ export class LoginPageComponent implements OnInit {
           });
         }
       } else {
+        this.dbConnection.showSpinnerSub.next(false);
+
         const finished = this.dialog.open(ErrorPopUpComponent, {
           data: {
             message: 'Please add your password',
@@ -50,6 +68,8 @@ export class LoginPageComponent implements OnInit {
         });
       }
     } else {
+      this.dbConnection.showSpinnerSub.next(false);
+
       const finished = this.dialog.open(ErrorPopUpComponent, {
         data: {
           message: 'Please add your username',

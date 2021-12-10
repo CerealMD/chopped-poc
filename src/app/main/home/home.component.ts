@@ -12,6 +12,8 @@ import { dbConnectionService } from 'src/app/background-components/services/call
 export class HomeComponent implements OnInit {
   subusername: any;
   unsubscribe: Subject<any> = new Subject();
+  sub: any;
+  showSpinner: any;
 
   constructor( public dialog: MatDialog,
     public router: Router,
@@ -23,7 +25,11 @@ export class HomeComponent implements OnInit {
        if(!username){
          this.router.navigate(['login-page']);
       }
-     })
+     });
+     this.sub = this.dbConnection.showSpinnerSub.pipe(takeUntil(this.unsubscribe)).subscribe(spinner => {
+      this.showSpinner = spinner;
+      console.log(this.showSpinner)
+    })
   }
   logout(){
     this.dbConnection.username.next(undefined);
