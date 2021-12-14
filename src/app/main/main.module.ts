@@ -10,6 +10,8 @@ import { HomeComponent } from './home/home.component';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppRoutingModule } from '../app-routing.module';
 import { SocialMediaComponent } from './social-media/social-media.component';
+import { HeaderComponent } from './header/header.component';
+import { FlavorParringModule } from './flavor-parring/flavor-parring.module';
 
 
 
@@ -17,9 +19,9 @@ import { SocialMediaComponent } from './social-media/social-media.component';
   declarations: [
     MainComponent,
     LoginPageComponent,
-    FlavorParringComponent,
     HomeComponent,
-    SocialMediaComponent
+    SocialMediaComponent,
+    HeaderComponent
   ],
   imports: [
     BrowserModule,
@@ -27,7 +29,8 @@ import { SocialMediaComponent } from './social-media/social-media.component';
     CommonModule,
     LandingPageModule,
     SharedModule,
-    AnswerViewModule
+    AnswerViewModule,
+    FlavorParringModule
   ],
   exports:[
     MainComponent

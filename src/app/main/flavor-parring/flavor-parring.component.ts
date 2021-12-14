@@ -7,29 +7,34 @@ import { dbConnectionService } from 'src/app/background-components/services/call
 @Component({
   selector: 'app-flavor-parring',
   templateUrl: './flavor-parring.component.html',
-  styleUrls: ['./flavor-parring.component.css']
+  styleUrls: ['./flavor-parring.component.css'],
 })
 export class FlavorParringComponent implements OnInit {
-
   subusername: any;
+  showSpinner =false;
   unsubscribe: Subject<any> = new Subject();
   sub: any;
 
-  constructor( public dialog: MatDialog,
+  constructor(
+    public dialog: MatDialog,
     public router: Router,
-    private dbConnection: dbConnectionService) { }
-
+    private dbConnection: dbConnectionService
+  ) {}
 
   ngOnInit(): void {
+    this.dbConnection.showSpinnerSub.next(true);
     this.dbConnection.showSpinnerSub.next(false);
-    this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
-       if(!username){
-         this.router.navigate(['login-page']);
-      }
-     });
+    this.subusername = this.dbConnection.username
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((username) => {
+        if (!username) {
+          this.router.navigate(['login-page']);
+        }
+      });
   }
-  showSpinner(showSpinner: any) {
-    throw new Error('Method not implemented.');
+  ngAfterContentInit() {}
+  ngDestroy() {
+    this.unsubscribe.next(false);
+    this.unsubscribe.complete();
   }
-
 }

@@ -48,51 +48,6 @@ export class MainComponent implements OnInit {
         }
       });
   }
-  logout() {
-    this.showdropdown = false;
-    this.dbConnection.showHeaderFooter.next(false);
-    this.dbConnection.username.next(undefined);
-    this.router.navigate(['login-page']);
-  }
-  showdDropDown() {
-    if (this.showdropdown) {
-      this.showdropdown = false;
-    } else {
-      this.showdropdown = true;
-    }
-  }
-  reroute(location) {
-    let currentLocation = '/' + location;
-    if (this.router.url === currentLocation) {
-      this.showdropdown = false;
-    console.log('same page');
-    } else {
-    this.dbConnection.showSpinnerSub.next(true);
-    switch (location) {
-        case 'landing-page': {
-          this.showdropdown = false;
-          this.router.navigate(['landing-page']);
-          break;
-        }
-        case 'answer-view': {
-          this.showdropdown = false;
-          this.router.navigate(['answer-view']);
-          break;
-        }
-        case 'flavor-parring': {
-          this.showdropdown = false;
-          this.router.navigate(['flavor-parring']);
-          break;
-        }
-        case 'home': {
-          this.dbConnection.showSpinnerSub.next(false);
-          this.showdropdown = false;
-          this.router.navigate(['home']);
-          break;
-        }
-      }
-    }
-  }
   ngDestroy() {
     this.unsubscribe.next(false);
     this.unsubscribe.complete();

@@ -1,28 +1,23 @@
 <div class="limiter">
-    <div class="container-login100">
-        <div class="wrap-login100">
-            <form class="login100-form validate-form">
-                <!-- <span class="login100-form-logo">
-                </span> -->
-
-                <span class="login100-form-title p-b-34 p-t-27">
-                    Login
-                </span>
-
-                <div class="wrap-input100 validate-input" data-validate = "Enter username">
-                    <input [(ngModel)]="username" class="input100" type="text" name="username" placeholder="Username">
-                </div>
-
-                <div class="wrap-input100 validate-input" data-validate="Enter password">
-                    <input [(ngModel)]="password" class="input100" type="password" name="pass" placeholder="Password">
-                </div>
-
-                <div class="container-login100-form-btn">
-                    <button (click)="login()" class="login100-form-btn">
-                        Login
-                    </button>
-                </div>
-            </form>
-        </div>
+  <div class="container-login100">
+    <div class="wrap-login100">
+      <div class="header">Login</div>
+      <mat-form-field class="formField" appearance="fill">
+        <mat-label>Username</mat-label>
+        <input matInput [(ngModel)]="username" class="" type="text" />
+      </mat-form-field>
+      <mat-form-field class="formField" appearance="fill">
+        <mat-label>Password</mat-label>
+        <input matInput [(ngModel)]="password" type="password" />
+      </mat-form-field>
+      <div class="buttonDivLogin">
+        <button mat-raised-button (click)="login()" class="buttonLogin">
+          Login
+        </button>
+      </div>
+      <div style="text-align: center; margin-top: 10%;">
+          <a>Forgot Password</a>
+      </div>
     </div>
+  </div>
 </div>

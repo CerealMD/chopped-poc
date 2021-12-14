@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Routes } from '@angular/router';
+import { RouterModule, Routes } from '@angular/router';
 import { FlavorParringComponent } from './flavor-parring.component';
+import { SharedModule } from 'src/app/background-components/shared-module';
 
 const routes: Routes = [
   {
     path: 'flavor-parring',
     component: FlavorParringComponent,
-  }
-]
+  },
+];
 
 @NgModule({
-  declarations: [],
-  imports: [
-    CommonModule
-  ]
+  declarations: [FlavorParringComponent],
+  exports: [FlavorParringComponent],
+  imports: [RouterModule.forChild(routes), CommonModule, SharedModule],
 })
-export class FlavorParringModule { }
+export class FlavorParringModule {}
