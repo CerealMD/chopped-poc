@@ -26,13 +26,6 @@ export class LoginPageComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    console.log(this.backgroundimg);
-    this.sub = this.dbConnection.showSpinnerSub
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((spinner) => {
-        this.showSpinner = spinner;
-        console.log(this.showSpinner);
-      });
   }
 
   login() {
@@ -45,7 +38,7 @@ export class LoginPageComponent implements OnInit {
         ) {
           this.dbConnection.username.next(this.username);
           this.dbConnection.showSpinnerSub.next(false);
-
+          this.dbConnection.showHeaderFooter.next(true);
           this.router.navigate(['home']);
         } else {
           this.dbConnection.showSpinnerSub.next(false);
@@ -77,5 +70,9 @@ export class LoginPageComponent implements OnInit {
         disableClose: true,
       });
     }
+  }
+  ngDestroy() {
+    this.unsubscribe.next(false);
+    this.unsubscribe.complete();
   }
 }

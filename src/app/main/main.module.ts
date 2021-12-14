@@ -7,6 +7,9 @@ import { AnswerViewModule } from './answer-view/answer-view.module';
 import { LoginPageComponent } from './login-page/login-page.component';
 import { FlavorParringComponent } from './flavor-parring/flavor-parring.component';
 import { HomeComponent } from './home/home.component';
+import { BrowserModule } from '@angular/platform-browser';
+import { AppRoutingModule } from '../app-routing.module';
+import { SocialMediaComponent } from './social-media/social-media.component';
 
 
 
@@ -15,9 +18,12 @@ import { HomeComponent } from './home/home.component';
     MainComponent,
     LoginPageComponent,
     FlavorParringComponent,
-    HomeComponent
+    HomeComponent,
+    SocialMediaComponent
   ],
   imports: [
+    BrowserModule,
+    AppRoutingModule,
     CommonModule,
     LandingPageModule,
     SharedModule,

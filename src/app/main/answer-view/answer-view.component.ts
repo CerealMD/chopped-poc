@@ -34,7 +34,6 @@ export class AnswerViewComponent implements OnInit {
 
   ngOnInit(): void {
     this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
-      console.log(username)
        if(!username){
          this.router.navigate(['login-page']);
       }
@@ -45,11 +44,8 @@ export class AnswerViewComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
         let data = JSON.parse(JSON.stringify(response));
-        // console.log(data);
         this.allResponses = data.response.Items;
-        console.log(this.allResponses);
         this.dataSource = new MatTableDataSource(this.allResponses);
-        console.log(this.dataSource);
         this.dataSource.paginator = this.paginator;
     this.dbConnection.showSpinnerSub.next(false);
       });
@@ -67,7 +63,6 @@ export class AnswerViewComponent implements OnInit {
     this.router.navigate(['home']);
   }
   applyFilter(event: Event) {
-    console.log(event)
     const filterValue = (event.target as HTMLInputElement).value;
     this.dataSource.filter = filterValue.trim().toLowerCase();
 
@@ -87,7 +82,10 @@ export class AnswerViewComponent implements OnInit {
       }
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
-      console.log(data);
     });
+  }
+  ngDestroy() {
+    this.unsubscribe.next(false);
+    this.unsubscribe.complete();
   }
 }

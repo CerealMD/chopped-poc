@@ -23,7 +23,6 @@ export class AddNewAnswerPopUpComponent implements OnInit {
 
   ngOnInit(): void {
     //Add code to add values to aws codebase
-    console.log(this.data.currentIngredients)
     this.fullList = this.data.fullList
     this.displayList = this.data.fullList
     this.currentIngreds = this.data.currentIngredients
@@ -40,7 +39,6 @@ export class AddNewAnswerPopUpComponent implements OnInit {
         .PostItem2Response(newRes)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe((data) => {
-          console.log(data);
         });
       this.dialog.closeAll();
       }
@@ -55,7 +53,6 @@ export class AddNewAnswerPopUpComponent implements OnInit {
           }
         );
         addIngredientDialogRef.afterClosed().subscribe((data) => {
-          console.log(data);
         });
       }
     }
@@ -70,7 +67,6 @@ export class AddNewAnswerPopUpComponent implements OnInit {
         }
       );
       addIngredientDialogRef.afterClosed().subscribe((data) => {
-        console.log(data);
       });
     }
   }
@@ -78,22 +74,18 @@ export class AddNewAnswerPopUpComponent implements OnInit {
 
   }
 onKey(value) { 
-  console.log(value)
   this.displayList = this.search(value);
 if(value===''){
   this.searchTerm = ''
 let newIngred = this.currentIngreds
 this.currentIngreds = this.currentSelectedIngreds
 this.currentIngreds.push(newIngred[0])
-console.log(this.currentIngreds)
-console.log(this.currentSelectedIngreds)
 this.displayList = this.fullList;
 
 }
 else{
-  // console.log('Value is present')
   this.currentSelectedIngreds = this.currentIngreds
-  // console.log(this.displayList)
+
 }
 }
 
@@ -105,7 +97,7 @@ clearSearch(){
   this.onKey('')
 }
 ngDestroy() {
-  // this.unsubscribe.next();
+  this.unsubscribe.next(false);
   this.unsubscribe.complete();
 }
 }

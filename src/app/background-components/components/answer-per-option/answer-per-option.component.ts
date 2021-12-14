@@ -14,7 +14,6 @@ export class AnswerPerOptionComponent implements OnInit {
   private dbConnection: dbConnectionService) { }
 
   ngOnInit(): void {
-    console.log(this.data)
   }
 
 }

@@ -21,16 +21,12 @@ export class FlavorParringComponent implements OnInit {
 
 
   ngOnInit(): void {
+    this.dbConnection.showSpinnerSub.next(false);
     this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
-      console.log(username)
        if(!username){
          this.router.navigate(['login-page']);
       }
      });
-     this.sub = this.dbConnection.showSpinnerSub.pipe(takeUntil(this.unsubscribe)).subscribe(spinner => {
-      this.showSpinner = spinner;
-      console.log(this.showSpinner)
-    });
   }
   showSpinner(showSpinner: any) {
     throw new Error('Method not implemented.');

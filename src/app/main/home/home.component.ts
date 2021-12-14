@@ -7,7 +7,7 @@ import { dbConnectionService } from 'src/app/background-components/services/call
 @Component({
   selector: 'app-home',
   templateUrl: './home.component.html',
-  styleUrls: ['./home.component.css']
+  styleUrls: ['./home.component.css'],
 })
 export class HomeComponent implements OnInit {
   subusername: any;
@@ -15,41 +15,47 @@ export class HomeComponent implements OnInit {
   sub: any;
   showSpinner: any;
 
-  constructor( public dialog: MatDialog,
+  constructor(
+    public dialog: MatDialog,
     public router: Router,
-    private dbConnection: dbConnectionService) { }
+    private dbConnection: dbConnectionService
+  ) {}
 
   ngOnInit(): void {
-    this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
-      console.log(username)
-       if(!username){
-         this.router.navigate(['login-page']);
-      }
-     });
-     this.sub = this.dbConnection.showSpinnerSub.pipe(takeUntil(this.unsubscribe)).subscribe(spinner => {
-      this.showSpinner = spinner;
-      console.log(this.showSpinner)
-    })
+    this.dbConnection.showSpinnerSub.next(false);
+    this.subusername = this.dbConnection.username
+      .pipe(takeUntil(this.unsubscribe))
+      .subscribe((username) => {
+        console.log(username);
+        if (!username) {
+          this.router.navigate(['login-page']);
+        }
+      });
+    this.dbConnection.showSpinnerSub.next(false);
   }
-  logout(){
+  logout() {
     this.dbConnection.username.next(undefined);
     this.router.navigate(['login-page']);
   }
-  reroute(location){
-switch(location){
-case 'landing': { 
-  this.router.navigate(['landing-page']);
-  break; 
-} 
-case 'answers': { 
-  this.router.navigate(['answer-view']);
-  break; 
-} 
-case 'flavor': { 
-  this.router.navigate(['flavor-parring']);
-  break; 
-} 
-}
+  reroute(location) {
+    this.dbConnection.showSpinnerSub.next(true);
+    switch (location) {
+      case 'landing': {
+        this.router.navigate(['landing-page']);
+        break;
+      }
+      case 'answers': {
+        this.router.navigate(['answer-view']);
+        break;
+      }
+      case 'flavor': {
+        this.router.navigate(['flavor-parring']);
+        break;
+      }
+    }
   }
-
+  ngDestroy() {
+    this.unsubscribe.next(false);
+    this.unsubscribe.complete();
+  }
 }

@@ -5,43 +5,36 @@
 <!-- <div *ngIf="joke" class="glow">7</div> -->
 <div>
   <div>
-      <div class="showButton">
-        <button *ngIf="!showItems" class="marginLeftItem" mat-raised-button (click)="switchShow()">
-          Show all Ingredients
-        </button>
-        <button *ngIf="showItems" class="marginLeftItem" mat-raised-button (click)="switchShow()">
-          Hide all Ingredients
-        </button>
-        <mat-form-field class="marginLeftItem" appearance="fill">
-          <mat-label style="color: white;"># of Ingredients</mat-label>
-          <mat-select
-            (selectionChange)="newSelect($event)"
-            [(ngModel)]="selectedValue"
-            style="color: white;"
-          >
-            <mat-option *ngFor="let number of numbers" [value]="number">
-              {{ number }}
-            </mat-option>
-          </mat-select>
-        </mat-form-field>
-      </div>
-  </div>
-
-  <div
-    class="showListItems"
-    style="font-size: 175%; color: white"
-  >
-  <div *ngIf="selectedValue > 0" style="margin-bottom: 4%;">Click an Ingredient to google it</div>
-    <div *ngFor="let item of ingredientsList; let i = index">
-      <div class="itemSpacing" (click)="searchItem(item)" *ngIf="i < selectedValue">{{ item }}</div>
+    <div class="showButton">
+      <button
+        *ngIf="!showItems"
+        class="marginLeftItem"
+        mat-raised-button
+        (click)="switchShow()"
+      >
+        Show all Ingredients
+      </button>
+      <button
+        *ngIf="showItems"
+        class="marginLeftItem"
+        mat-raised-button
+        (click)="switchShow()"
+      >
+        Hide all Ingredients
+      </button>
+      <mat-form-field class="marginLeftItem" appearance="fill">
+        <mat-label style="color: white"># of Ingredients</mat-label>
+        <mat-select
+          (selectionChange)="newSelect($event)"
+          [(ngModel)]="selectedValue"
+          style="color: white"
+        >
+          <mat-option *ngFor="let number of numbers" [value]="number">
+            {{ number }}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
     </div>
-    <button
-      *ngIf="selectedValue > 0"
-      mat-raised-button
-      (click)="shuffle(ingredientsList)"
-    >
-      Shuffle Ingredient(s)
-    </button>
   </div>
 </div>
 <div class="newSection showButton">
@@ -55,27 +48,28 @@
 <div class="newSection showButton">
   <button mat-raised-button (click)="toAnswers()">Home</button>
 </div>
-
-  <!-- <div  class = "centered">
+<div class="showListItems" style="font-size: 175%; color: white; margin-bottom: 2%;">
+  <div *ngIf="selectedValue > 0" style="margin-bottom: 4%">
+    Click an Ingredient to google it
+  </div>
+  <div *ngFor="let item of ingredientsList; let i = index">
+    <div
+      class="itemSpacing"
+      (click)="searchItem(item)"
+      *ngIf="i < selectedValue"
+    >
+      {{ item }}
+    </div>
+  </div>
+  <button
+    *ngIf="selectedValue > 0"
+    mat-raised-button
+    (click)="shuffle(ingredientsList)"
+  >
+    Shuffle Ingredient(s)
+  </button>
+</div>
+<!-- <div  class = "centered">
     <div class = "blob-1"></div>
     <div class = "blob-2"></div>
   </div> -->
-
-  <div *ngIf="showSpinner" class="no-freeze-spinner">
-  
-    <div id="no-freeze-spinner">
-      <div>
-        <i class="material-icons">
-          fastfood
-        </i>
-        <i class="material-icons">
-          local_dining
-        </i>
-        <i class="material-icons">
-          local_pizza
-        </i>
-        <div>
-        </div>
-      </div>
-    </div>
-  </div>

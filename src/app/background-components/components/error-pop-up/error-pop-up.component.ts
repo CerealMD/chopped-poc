@@ -12,7 +12,6 @@ export class ErrorPopUpComponent implements OnInit {
   public dialog: MatDialog) { }
 
   ngOnInit(): void {
-    console.log(this.error)
   }
   
 }

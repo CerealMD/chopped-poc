@@ -25,7 +25,6 @@ export class AddNewIngredientPopUpComponent implements OnInit {
         .PostItem2List(this.newVariable)
         .pipe(takeUntil(this.unsubscribe))
         .subscribe((data) => {
-          console.log(data);
         });
       this.dialog.closeAll();
     } else {
@@ -36,12 +35,11 @@ export class AddNewIngredientPopUpComponent implements OnInit {
         disableClose: true,
       });
       addIngredientDialogRef.afterClosed().subscribe((data) => {
-        console.log(data);
       });
     }
   }
   ngDestroy() {
-    // this.unsubscribe.next();
+    this.unsubscribe.next(false);
     this.unsubscribe.complete();
   }
 }

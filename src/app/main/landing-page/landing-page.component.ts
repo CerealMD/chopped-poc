@@ -45,7 +45,6 @@ export class LandingPageComponent implements OnInit {
 
   ngOnInit(): void {
     this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
-     console.log(username)
       if(!username){
         this.router.navigate(['login-page']);
      }
@@ -56,27 +55,18 @@ export class LandingPageComponent implements OnInit {
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((response) => {
         let data = JSON.parse(JSON.stringify(response));
-        // console.log(data);
         this.currentFoods = data.response.Items;
-        // console.log(this.currentFoods);
         for (let x of this.currentFoods) {
           this.ingredientsList.push(x.ingredient);
         }
-        // console.log(this.ingredientsList);
         this.numbers = Array.from(
           Array(this.ingredientsList.length + 1),
           (x, i) => i
         );
-        // console.log(this.numbers);
         this.shuffle(this.ingredientsList);
       });
-      this.sub = this.dbConnection.showSpinnerSub.pipe(takeUntil(this.unsubscribe)).subscribe(spinner => {
-        this.showSpinner = spinner;
-        console.log(this.showSpinner)
-      })
   }
   newSelect(event) {
-    console.log(event);
     // this.shuffle(this.ingredientsList);
   }
   switchShow() {
@@ -138,7 +128,6 @@ export class LandingPageComponent implements OnInit {
         );
        
           this.dbConnection.showSpinnerSub.next(true);
-          console.log(data);
           this.ingredientsList = [];
           this.ngOnInit();
      
@@ -147,8 +136,6 @@ export class LandingPageComponent implements OnInit {
     });
   }
   addResponse() {
-    console.log(this.ingredientsList.slice(0, this.selectedValue));
-    console.log(this.ingredientsList.slice(0, this.selectedValue));
     const addResponseDialogRef = this.dialog.open(AddNewAnswerPopUpComponent, {
       data: {
         message: 'hello',
@@ -159,7 +146,6 @@ export class LandingPageComponent implements OnInit {
     });
     addResponseDialogRef.afterClosed().subscribe((response) => {
       if(response === undefined){
-        console.log(response)
         const finished = this.dialog.open(
           ErrorPopUpComponent,
           {
@@ -169,7 +155,6 @@ export class LandingPageComponent implements OnInit {
             disableClose: true
           }
         );
-        console.log(response);
       }
      
     });
@@ -192,6 +177,10 @@ export class LandingPageComponent implements OnInit {
   shuffleAlph(array) {
     array.sort();
     return array;
+  }
+  ngDestroy() {
+    this.unsubscribe.next(false);
+    this.unsubscribe.complete();
   }
 }
 
