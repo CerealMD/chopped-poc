@@ -2,7 +2,7 @@
 .baseLayout{
     /* display: grid;
     grid-template-rows: 0em 40fr 1fr; */
-    height: 96%;
+    height: 94%;
 }
 
   @media screen and (max-height: 450px) {

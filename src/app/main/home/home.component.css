@@ -11,4 +11,23 @@
 .paragraph{
   text-align: center;
   color: white;
+  padding: 0% 2%;
+  height: 99%;
+  overflow: auto;
+}
+@media screen and (max-height: 670px) {
+  .paragraph{
+    height: 96%;
+  }
+}
+@media screen and (max-height: 740px) {
+  .paragraph{
+    height: 97%;
+  }
+}
+.titleText{
+  font-size: 4vh;
+}
+.textText{
+  font-size: 2vh;
 }

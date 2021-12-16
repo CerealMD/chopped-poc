@@ -54,7 +54,7 @@
       padding: 2% 0px;
   }
   .showButton{
-    margin: 5%;
+    margin: 0px 5%;
     text-align: center;
   }
   :host::ng-deep.mat-select-value-text {
@@ -105,4 +105,23 @@
     100%{left:80%;}
   }
 
-  
+  .fullListView{
+    height: 40vh;
+    overflow-y: auto;
+  }
+  @media screen and (max-height: 770px) {
+    .fullListView{
+      height: 30vh;
+    }
+  }
+  @media screen and (max-height: 650px) {
+    .fullListView{
+      height: 25vh;
+    }
+  }
+  @media screen and (max-height: 600px) {
+    .fullListView{
+      height: 20vh;
+    }
+  }
+ 

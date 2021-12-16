@@ -4,6 +4,7 @@ import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
 import { ErrorPopUpComponent } from 'src/app/background-components/components/error-pop-up/error-pop-up.component';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
+import { Auth } from 'aws-amplify';
 
 @Component({
   selector: 'app-login-page',
@@ -27,7 +28,17 @@ export class LoginPageComponent implements OnInit {
 
   ngOnInit(): void {
   }
-
+  async awsLogin(){
+    console.log('trying AWS login')
+  try {
+    const user = await Auth.signIn(this.username, this.password).then( response => 
+    console.log(response)
+    );
+    console.log(user)
+} catch (error) {
+    console.log('error signing in', error);
+}
+}
   login() {
     this.dbConnection.showSpinnerSub.next(true);
     if (this.username !== '' && this.username !== undefined) {

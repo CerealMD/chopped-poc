@@ -1,0 +1,20 @@
+{
+  "dev": {
+    "awscloudformation": {
+      "AuthRoleName": "amplify-choppedpoc-dev-212005-authRole",
+      "UnauthRoleArn": "arn:aws:iam::764527381109:role/amplify-choppedpoc-dev-212005-unauthRole",
+      "AuthRoleArn": "arn:aws:iam::764527381109:role/amplify-choppedpoc-dev-212005-authRole",
+      "Region": "us-east-2",
+      "DeploymentBucketName": "amplify-choppedpoc-dev-212005-deployment",
+      "UnauthRoleName": "amplify-choppedpoc-dev-212005-unauthRole",
+      "StackName": "amplify-choppedpoc-dev-212005",
+      "StackId": "arn:aws:cloudformation:us-east-2:764527381109:stack/amplify-choppedpoc-dev-212005/afd64770-5e16-11ec-8588-0a9ce1af3030",
+      "AmplifyAppId": "dda7f15q6dvbu"
+    },
+    "categories": {
+      "auth": {
+        "choppedpoc3ee5105e": {}
+      }
+    }
+  }
+}

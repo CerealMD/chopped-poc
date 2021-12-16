@@ -45,13 +45,11 @@
     Add New Response
   </button>
 </div>
-<div class="newSection showButton">
-  <button mat-raised-button (click)="toAnswers()">Home</button>
-</div>
 <div class="showListItems" style="font-size: 175%; color: white; margin-bottom: 2%;">
   <div *ngIf="selectedValue > 0" style="margin-bottom: 4%">
     Click an Ingredient to google it
   </div>
+  <div class="fullListView">
   <div *ngFor="let item of ingredientsList; let i = index">
     <div
       class="itemSpacing"
@@ -61,6 +59,7 @@
       {{ item }}
     </div>
   </div>
+</div>
   <button
     *ngIf="selectedValue > 0"
     mat-raised-button
