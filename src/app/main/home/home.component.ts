@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { AmpService } from 'src/app/background-components/services/ampService';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 
 @Component({
@@ -17,23 +18,16 @@ export class HomeComponent implements OnInit {
 
   constructor(
     public dialog: MatDialog,
-    public router: Router,
+    public router: Router, public ampService: AmpService,
     private dbConnection: dbConnectionService
   ) {}
 
   ngOnInit(): void {
     this.dbConnection.showSpinnerSub.next(false);
-    this.subusername = this.dbConnection.username
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((username) => {
-        console.log(username);
-        if (!username) {
-          this.router.navigate(['login-page']);
-        }
-      });
-    this.dbConnection.showSpinnerSub.next(false);
+
   }
   logout() {
+    this.ampService.logout()
     this.dbConnection.username.next(undefined);
     this.router.navigate(['login-page']);
   }

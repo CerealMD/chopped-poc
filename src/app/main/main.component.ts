@@ -1,6 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
+import Auth from '@aws-amplify/auth';
 import { Subject, takeUntil } from 'rxjs';
 import { dbConnectionService } from '../background-components/services/callDbConnection';
 
@@ -24,15 +25,11 @@ export class MainComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subusername = this.dbConnection.username
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((username) => {
-        if (!username || this.hideStuffs === false) {
-          this.router.navigate(['login-page']);
-        }
-      });
+
   }
   ngAfterContentInit() {
+    // let user = Auth.currentUserCredentials();
+    // console.log(user)
     this.subHF = this.dbConnection.showHeaderFooter
       .pipe(takeUntil(this.unsubscribe))
       .subscribe((show) => {

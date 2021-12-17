@@ -24,13 +24,7 @@ export class HeaderComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subusername = this.dbConnection.username
-      .pipe(takeUntil(this.unsubscribe))
-      .subscribe((username) => {
-        if (!username || this.hideStuffs === false) {
-          this.router.navigate(['login-page']);
-        }
-      });
+
   }
   reroute(location) {
     let currentLocation = '/' + location;

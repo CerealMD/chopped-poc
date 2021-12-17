@@ -12,6 +12,7 @@ import { ErrorPopUpComponent } from './background-components/components/error-po
 import { dbConnectionService } from './background-components/services/callDbConnection';
 import { HttpClientModule } from '@angular/common/http';
 import { AnswerPerOptionComponent } from './background-components/components/answer-per-option/answer-per-option.component';
+import { ForcePassResetDialogComponent } from './background-components/components/force-pass-reset-dialog/force-pass-reset-dialog.component';
 
 @NgModule({
   declarations: [
@@ -19,7 +20,8 @@ import { AnswerPerOptionComponent } from './background-components/components/ans
     AddNewAnswerPopUpComponent,
     AddNewIngredientPopUpComponent,
     ErrorPopUpComponent,
-    AnswerPerOptionComponent
+    AnswerPerOptionComponent,
+    ForcePassResetDialogComponent
   ],
   imports: [
     BrowserModule,

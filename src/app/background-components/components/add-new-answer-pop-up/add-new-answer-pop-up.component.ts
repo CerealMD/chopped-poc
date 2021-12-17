@@ -1,6 +1,7 @@
 import { Component, Inject, OnInit } from '@angular/core';
 import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { Subject, takeUntil } from 'rxjs';
+import { AmpService } from '../../services/ampService';
 import { dbConnectionService } from '../../services/callDbConnection';
 import { ErrorPopUpComponent } from '../error-pop-up/error-pop-up.component';
 
@@ -19,9 +20,13 @@ export class AddNewAnswerPopUpComponent implements OnInit {
   currentSelectedIngreds: any;
   unsubscribe: Subject<any> = new Subject();
 
-  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog,private dbConnection: dbConnectionService) { }
+  constructor(@Inject(MAT_DIALOG_DATA) public data: any,public dialog: MatDialog,private dbConnection: dbConnectionService, public ampService: AmpService) { }
 
   ngOnInit(): void {
+    this.ampService.getUserName().then((userName) => {
+      this.userName = this.ampService.capitalizeFirstLetter(userName)
+    });
+    console.log(this.userName)
     //Add code to add values to aws codebase
     this.fullList = this.data.fullList
     this.displayList = this.data.fullList
