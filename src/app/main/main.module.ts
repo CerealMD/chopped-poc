@@ -12,6 +12,8 @@ import { AppRoutingModule } from '../app-routing.module';
 import { SocialMediaComponent } from './social-media/social-media.component';
 import { HeaderComponent } from './header/header.component';
 import { FlavorParringModule } from './flavor-parring/flavor-parring.module';
+import { ReplacementPageComponent } from './replacement-page/replacement-page.component';
+import { ReplacementPageModule } from './replacement-page/replacement-page.module';
 
 
 
@@ -30,7 +32,8 @@ import { FlavorParringModule } from './flavor-parring/flavor-parring.module';
     LandingPageModule,
     SharedModule,
     AnswerViewModule,
-    FlavorParringModule
+    FlavorParringModule,
+    ReplacementPageModule
   ],
   exports:[
     MainComponent

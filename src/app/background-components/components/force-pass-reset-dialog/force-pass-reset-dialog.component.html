@@ -20,11 +20,11 @@
   <div>
 <mat-form-field>
   <mat-label>Password</mat-label>
-  <input matInput (keyup)="checkSubmitStatus(password, confpassword)" [(ngModel)]="password" />
+  <input matInput type="password" (keyup)="checkSubmitStatus(password, confpassword)" [(ngModel)]="password" />
 </mat-form-field>
 <mat-form-field>
   <mat-label>Confirm Password</mat-label>
-  <input matInput (keyup)="checkSubmitStatus(password, confpassword)" [(ngModel)]="confpassword" />
+  <input matInput type="password" (keyup)="checkSubmitStatus(password, confpassword)" [(ngModel)]="confpassword" />
 </mat-form-field>
 </div>
 </div>

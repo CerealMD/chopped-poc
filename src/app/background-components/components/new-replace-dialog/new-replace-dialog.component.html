@@ -1,0 +1,24 @@
+<div style="text-align: center">
+    <div class="titleFood">{{ data.message }}:</div>
+    <div *ngIf="this.data.proccess === 'Add'">
+        <mat-form-field>
+          <mat-label>Replaceable Item 1</mat-label>
+          <input matInput [(ngModel)]="replacingItem1" />
+        </mat-form-field>
+        <mat-form-field>
+          <mat-label>Replaceable Item 2</mat-label>
+          <input matInput [(ngModel)]="replacingItem2" />
+        </mat-form-field>
+        </div>
+        <div *ngIf="this.data.proccess === 'Delete'">
+            <mat-form-field>
+              <mat-label>Replaceable Item 1</mat-label>
+              <input matInput [(ngModel)]="replacingItem1" />
+            </mat-form-field>
+            </div>
+        <div style="text-align: center;">
+            <button class="marginLeftItem" mat-raised-button (click)="sumbitAnswer()">Submit</button>
+            <button style="margin-left: 40%;" class="marginLeftItem" mat-raised-button matDialogClose>Close</button>
+          </div>
+  </div>
+  

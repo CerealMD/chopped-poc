@@ -1,0 +1,37 @@
+<div class="widthFull">
+    <div *ngIf="isAdmin" style="padding-top: 2%;">
+      <button
+          class="marginLeftItem"
+          mat-raised-button
+          (click)="newPairing()"
+        >
+          New Replacement
+        </button>
+        <!-- <button
+          class="marginLeftItem"
+          mat-raised-button
+          (click)="deletePairing()"
+        >
+          Delete Pairing
+        </button> -->
+    </div>
+      <mat-form-field class="ninty" appearance="standard">
+        <mat-label style="color: white;">Filter</mat-label>
+        <input matInput style="color: white;" (keyup)="applyFilter($event)" placeholder="Search" #input>
+      </mat-form-field>
+      <table class="ninty tableFormat" mat-table [dataSource]="dataSource">
+        <ng-container matColumnDef="item">
+          <th class="widthFull" mat-header-cell *matHeaderCellDef > Food Item </th>
+          <td class="widthFull" mat-cell *matCellDef="let element"> {{element.foodItem}} </td>
+        </ng-container>
+        <mat-header-row *matHeaderRowDef="displayedColumns"></mat-header-row>
+        <mat-row *matRowDef="let row; columns: displayedColumns;" (click)="popUpAnswer(row)"></mat-row>
+      </table>
+      <mat-paginator class="ninty" [pageSizeOptions]="[5, 1, 10, 12]"
+                     showFirstLastButtons >
+      </mat-paginator>
+      <br/>
+      <br/>
+      <br/>
+    </div>
+    

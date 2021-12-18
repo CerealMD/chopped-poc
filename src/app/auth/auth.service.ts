@@ -9,6 +9,7 @@ import {
 import { JwtHelperService } from '@auth0/angular-jwt';
 import { Observable } from 'rxjs';
 import { AmpService } from '../background-components/services/ampService';
+import jwt_decode from 'jwt-decode';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -23,7 +24,9 @@ export class AuthService {
   }
 
   setUserData(idToken, accessToken, refreshToken) {
-    const decodedIdToken = this.jwtHelper.decodedToken(idToken);
+    console.log(idToken);
+    const decodedIdToken = this.getDecodedAccessToken(idToken);
+    console.log(decodedIdToken);
     const userGroups = decodedIdToken['cognito:groups'];
     console.log(userGroups);
     if (userGroups) {
@@ -43,6 +46,14 @@ export class AuthService {
       this.ampService.isTest_Account = false;
       this.ampService.isBaseUser = false;
     }
-    this.router.navigate(['home']);
+    return true
+  }
+  getDecodedAccessToken(token: string): any {
+    try{
+        return jwt_decode(token);
+    }
+    catch(Error){
+        return null;
+    }
   }
 }

@@ -46,11 +46,13 @@ export class HeaderComponent implements OnInit {
           break;
         }
         case 'flavor-parring': {
+          this.dbConnection.showSpinnerSub.next(true);
           this.showdropdown = false;
           this.router.navigate(['flavor-parring']);
           break;
         }
         case 'replace-item': {
+          this.dbConnection.showSpinnerSub.next(true);
           this.showdropdown = false;
           this.router.navigate(['replace-item']);
           break;

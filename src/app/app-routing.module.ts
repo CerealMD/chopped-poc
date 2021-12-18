@@ -6,6 +6,7 @@ import { FlavorParringComponent } from './main/flavor-parring/flavor-parring.com
 import { HomeComponent } from './main/home/home.component';
 import { LandingPageComponent } from './main/landing-page/landing-page.component';
 import { LoginPageComponent } from './main/login-page/login-page.component';
+import { ReplacementPageComponent } from './main/replacement-page/replacement-page.component';
 
 const routes: Routes = [
   {
@@ -30,6 +31,11 @@ const routes: Routes = [
   {
     path: 'flavor-parring',
     component: FlavorParringComponent,
+    canActivate: [AuthGuard],
+  },
+  {
+    path: 'replace-item',
+    component: ReplacementPageComponent,
     canActivate: [AuthGuard],
   },
   { path: '', component: LoginPageComponent },

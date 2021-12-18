@@ -14,7 +14,11 @@
     }
   }
 
-
+  @media screen and (max-height: 700px) {
+    .baseLayout{
+      height: 90%;
+    }
+  }
   body{
       margin:0;
     overflow:hidden;

@@ -6,18 +6,17 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import Amplify from '@aws-amplify/core';
 import { Subject, takeUntil } from 'rxjs';
-import { NewPairingDialogComponent } from 'src/app/background-components/components/new-pairing-dialog/new-pairing-dialog.component';
 import { NewReplaceDialogComponent } from 'src/app/background-components/components/new-replace-dialog/new-replace-dialog.component';
 import { ShowPairingDialogComponent } from 'src/app/background-components/components/show-pairing-dialog/show-pairing-dialog.component';
 import { AmpService } from 'src/app/background-components/services/ampService';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 
 @Component({
-  selector: 'app-flavor-parring',
-  templateUrl: './flavor-parring.component.html',
-  styleUrls: ['./flavor-parring.component.css'],
+  selector: 'app-replacement-page',
+  templateUrl: './replacement-page.component.html',
+  styleUrls: ['./replacement-page.component.css']
 })
-export class FlavorParringComponent implements OnInit {
+export class ReplacementPageComponent implements OnInit {
   subusername: any;
   showSpinner =false;
   unsubscribe: Subject<any> = new Subject();
@@ -42,7 +41,7 @@ export class FlavorParringComponent implements OnInit {
   getInfo() {
     this.dbConnection.showSpinnerSub.next(true);
     this.dbConnection
-    .getPairings()
+    .getReplace()
     .pipe(takeUntil(this.unsubscribe))
     .subscribe((response) => {
       this.pairingArray = response['response']['Items']
@@ -87,7 +86,7 @@ export class FlavorParringComponent implements OnInit {
   }
   newPairing(){
     const addIngredientDialogRef = this.dialog.open(
-      NewPairingDialogComponent,
+      NewReplaceDialogComponent,
       {
         data: {
           message: 'Add a new pairing',
@@ -100,15 +99,14 @@ export class FlavorParringComponent implements OnInit {
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
       if(data){
-        console.log(data)
-        this.getInfo();
-        this.getInfo();
+        this.getInfo()
+        this.getInfo()
       }
     });
   }
   deletePairing(){
     const deleteIngredientDialogRef = this.dialog.open(
-      NewPairingDialogComponent,
+      NewReplaceDialogComponent,
       {
         data: {
           message: 'Delete a pairing',

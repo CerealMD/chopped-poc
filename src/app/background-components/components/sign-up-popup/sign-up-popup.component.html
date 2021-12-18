@@ -1,0 +1,17 @@
+<div style="text-align: center;">
+<mat-form-field>
+    <mat-label>Username</mat-label>
+    <input matInput [(ngModel)]="username" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Password</mat-label>
+    <input matInput [(ngModel)]="password" />
+  </mat-form-field>
+  <mat-form-field>
+    <mat-label>Email</mat-label>
+    <input matInput [(ngModel)]="email" />
+  </mat-form-field></div>
+  <div style="text-align: center;">
+    <button class="marginLeftItem" mat-raised-button (click)="sumbitAnswer()">Submit</button>
+    <button style="margin-left: 40%;" class="marginLeftItem" mat-raised-button matDialogClose>Close</button>
+  </div>

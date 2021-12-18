@@ -1,0 +1,32 @@
+<div style="text-align: center">
+  <div class="titleFood">Pairing for {{ data.currentPairing.foodItem }}:</div>
+  <mat-form-field appearance="standard">
+    <mat-label>Filter</mat-label>
+    <input
+      matInput
+      (keyup)="applyFilter(selectedValue)"
+      [(ngModel)]="selectedValue"
+    />
+  </mat-form-field>
+  <div class="listofFoods" *ngIf="!selectedValue">
+    <div
+      class="arrayList"
+      *ngFor="let pairing of data.currentPairing.pairingArray"
+    >
+      {{ pairing.foodItem }} <br />
+    </div>
+  </div>
+  <div class="listofFoods" *ngIf="selectedValue">
+    <div
+      class="arrayList"
+      *ngFor="let pairing of data.currentPairing.pairingArray"
+    >
+      <div class="arrayList" *ngIf="pairing.foodItem.includes(selectedValue)">
+        {{ pairing.foodItem }} <br />
+      </div>
+    </div>
+  </div>
+  <div class="closeButton">
+    <button mat-raised-button matDialogClose>Close</button>
+  </div>
+</div>

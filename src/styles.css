@@ -17,3 +17,7 @@ html{
 }
 html, body { height: 100%; }
 body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+.showPairingDialog{
+    max-height: 80vh;
+    /* width: 55%; */
+}

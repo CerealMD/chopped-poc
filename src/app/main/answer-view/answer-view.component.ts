@@ -33,11 +33,6 @@ export class AnswerViewComponent implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.subusername = this.dbConnection.username.pipe(takeUntil(this.unsubscribe)).subscribe(username => {
-       if(!username){
-         this.router.navigate(['login-page']);
-      }
-     })
     this.dbConnection.showSpinnerSub.next(true);
     this.dbConnection
       .getAnswers()

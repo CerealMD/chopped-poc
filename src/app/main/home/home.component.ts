@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MatDialog } from '@angular/material/dialog';
 import { Router } from '@angular/router';
 import { Subject, takeUntil } from 'rxjs';
+import { SignUpPopupComponent } from 'src/app/background-components/components/sign-up-popup/sign-up-popup.component';
 import { AmpService } from 'src/app/background-components/services/ampService';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 
@@ -14,8 +15,9 @@ export class HomeComponent implements OnInit {
   subusername: any;
   unsubscribe: Subject<any> = new Subject();
   sub: any;
+  isAdmin = this.ampService.isAdmin
   showSpinner: any;
-
+  
   constructor(
     public dialog: MatDialog,
     public router: Router, public ampService: AmpService,
@@ -47,6 +49,19 @@ export class HomeComponent implements OnInit {
         break;
       }
     }
+  }
+  signUp(){
+    const addIngredientDialogRef = this.dialog.open(
+      SignUpPopupComponent,
+      {
+        data: {
+          message: 'hello',
+        },
+        disableClose: true,
+      }
+    );
+    addIngredientDialogRef.afterClosed().subscribe((data) => {
+    });
   }
   ngDestroy() {
     this.unsubscribe.next(false);

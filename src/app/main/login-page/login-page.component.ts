@@ -6,6 +6,7 @@ import { ErrorPopUpComponent } from 'src/app/background-components/components/er
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 import { Auth } from 'aws-amplify';
 import { AmpService } from 'src/app/background-components/services/ampService';
+import { ConfSingUpPopupComponent } from 'src/app/background-components/components/conf-sing-up-popup/conf-sing-up-popup.component';
 
 @Component({
   selector: 'app-login-page',
@@ -39,14 +40,12 @@ export class LoginPageComponent implements OnInit {
     this.dbConnection.showSpinnerSub.next(true);
     if (this.username !== '' && this.username !== undefined) {
       if (this.password !== '' && this.password !== undefined) {
-        // if (
-        //   this.username === this.baseusername &&
-        //   this.password === this.basepassword
-        // ) {
           this.dbConnection.username.next(this.username);
           this.dbConnection.showSpinnerSub.next(false);
-          await this.ampService.login(this.username, this.password, this);
+        let logIn =  await this.ampService.login(this.username, this.password, this);
+        if(logIn){
           this.router.navigate(['home']);
+        }
       } else {
         this.dbConnection.showSpinnerSub.next(false);
 
@@ -82,9 +81,23 @@ if(error != null){
   });
 }
 else{
+  return true
   console.log(result)
 
 }
+  }
+  signup(){
+    const addIngredientDialogRef = this.dialog.open(
+      ConfSingUpPopupComponent,
+      {
+        data: {
+          message: 'hello',
+        },
+        disableClose: true,
+      }
+    );
+    addIngredientDialogRef.afterClosed().subscribe((data) => {
+    });
   }
   ngDestroy() {
     this.unsubscribe.next(false);

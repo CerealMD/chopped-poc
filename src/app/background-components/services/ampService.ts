@@ -9,6 +9,7 @@ import { CognitoUserInterface } from '@aws-amplify/ui-components';
 import { ForcePassResetDialogComponent } from '../components/force-pass-reset-dialog/force-pass-reset-dialog.component';
 import { ErrorPopUpComponent } from '../components/error-pop-up/error-pop-up.component';
 import { JwtHelperService } from '@auth0/angular-jwt';
+import { AuthService } from 'src/app/auth/auth.service';
 @Injectable({ providedIn: 'root' })
 export class AmpService {
   private user: CognitoUserInterface | undefined;
@@ -18,6 +19,9 @@ export class AmpService {
   isTest_Account;
   isAdmin;
   jwtHelper = new JwtHelperService();
+  idToken: any;
+  accessToken: any;
+  refreshToken: any;
   constructor(
     public dialog: MatDialog,
     public router: Router,
@@ -27,7 +31,7 @@ export class AmpService {
   async login(Username, Password, callback) {
     try {
       const user = await Auth.signIn(Username, Password);
-      console.log(user);
+      // console.log(user);
       if (user.challengeName === 'NEW_PASSWORD_REQUIRED') {
         if (user.challengeParam.userAttributes.email_verified !== undefined) {
           console.log(user.challengeParam.userAttributes.email_verified);
@@ -43,19 +47,20 @@ export class AmpService {
           .subscribe(async (val) => {
             const loggedUser = Auth.completeNewPassword(user, val.newPass).then(
               (newPasswordResult) => {
-                console.log('new pass', newPasswordResult);
+                // console.log('new pass', newPasswordResult);
                 this.login(Username, val.newPass, callback);
               },
               (err) => {
-                console.log(err);
+                // console.log(err);
                 callback.handleCognito(err, null);
               }
             );
           });
       } else {
-        console.log(user);
-        console.log(user.challengeName);
-        callback.handleCognito(null, user.signInUserSession);
+        // console.log(user);
+        // console.log(user.challengeName);
+        // callback.handleCognito(null, user.signInUserSession);
+        return true
       }
     } catch (error) {
       console.log('error signing in', error);
@@ -69,12 +74,12 @@ export class AmpService {
     }
   }
   async getCurrentUser() {
-    console.log('get current user');
+    // console.log('get current user');
     return new Promise(async (resolve) => {
       try {
-        console.log('currentAuthenticatedUser');
+        // console.log('currentAuthenticatedUser');
         let user = await Auth.currentAuthenticatedUser();
-        console.log(user);
+        // console.log(user);
         this.username = user.username;
         this.setID(user.attributes.sub);
         const accessToken = user.signInUserSession
@@ -84,9 +89,10 @@ export class AmpService {
         const refreshToken = user.signInUserSession
           .getRefreshToken()
           .getToken();
-        console.log(accessToken);
-        console.log(idToken);
-        console.log(refreshToken);
+          this.setTokens(idToken,accessToken, refreshToken)
+        // console.log(accessToken);
+        // console.log(idToken);
+        // console.log(refreshToken);
         const isExpired = this.jwtHelper.isTokenExpired(accessToken);
         if (!isExpired) {
           const decodedIdToken = this.jwtHelper.decodeToken(idToken);
@@ -118,9 +124,23 @@ export class AmpService {
         if (this.router.url !== 'login-page') {
           this.router.navigate(['login-page']);
         }
+        this.logout();
       }
-      this.logout();
     });
+  }
+  setTokens(id, access, ref) {
+    this.idToken = id;
+    this.accessToken = access;
+    this.refreshToken = ref;
+  }
+  getIdToken(){
+    return this.idToken
+  }
+  getAccessToken(){
+    return this.accessToken
+  }
+  getRefreshToken(){
+    return this.refreshToken
   }
   setID(iD) {
     this.cognitoID = iD;
@@ -129,11 +149,12 @@ export class AmpService {
     return this.cognitoID;
   }
   logout() {
-    Auth.signOut();
+
+    Auth.signOut({ global: true });
   }
   async getUserName() {
     let user = await Auth.currentAuthenticatedUser();
-    let name = user.username
+    let name = user.username;
     console.log(name);
     return name;
   }

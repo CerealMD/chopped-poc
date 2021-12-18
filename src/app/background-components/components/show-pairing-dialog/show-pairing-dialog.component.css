@@ -1,0 +1,19 @@
+.closeButton{
+    text-align: center;
+    margin-top: 5%;
+    /* bottom: 11%;
+    left: 25%;
+    position: fixed;
+    width: 50%; */
+}
+.titleFood{
+    margin-bottom: 5%;
+}
+.arrayList{
+    margin: 1% 0px;
+}
+.listofFoods{
+    max-height: 50vh;
+    overflow-y: auto;
+
+}
