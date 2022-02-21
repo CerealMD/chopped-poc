@@ -4,6 +4,7 @@
         class="marginLeftItem"
         mat-raised-button
         (click)="newPairing()"
+        *ngIf="isAdmin"
       >
         New Pairing
       </button>

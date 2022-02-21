@@ -30,20 +30,24 @@ export class LoginPageComponent implements OnInit {
     public ampService: AmpService
   ) {}
 
-  ngOnInit(): void {
+  ngOnInit(): void {}
+  async awsLogin() {
+    console.log('trying AWS login');
+    await this.ampService.login(this.username, this.password, this);
   }
-  async awsLogin(){
-    console.log('trying AWS login')
- await this.ampService.login(this.username, this.password, this);
-}
   async login() {
     this.dbConnection.showSpinnerSub.next(true);
     if (this.username !== '' && this.username !== undefined) {
       if (this.password !== '' && this.password !== undefined) {
-          this.dbConnection.username.next(this.username);
-          this.dbConnection.showSpinnerSub.next(false);
-        let logIn =  await this.ampService.login(this.username, this.password, this);
-        if(logIn){
+        let useUsername = this.username.toLowerCase()
+        this.dbConnection.username.next(useUsername);
+        this.dbConnection.showSpinnerSub.next(false);
+        let logIn = await this.ampService.login(
+          useUsername,
+          this.password,
+          this
+        );
+        if (logIn) {
           this.router.navigate(['home']);
         }
       } else {
@@ -67,40 +71,40 @@ export class LoginPageComponent implements OnInit {
       });
     }
   }
-  handleCognito(error, result){
-if(error != null){
-  console.log(error);
-  
-  this.errorMessage = {
-    message: error,
-    title: 'Login Error'
-  }
-  const finished = this.dialog.open(ErrorPopUpComponent, {
-    data: this.errorMessage,
-    disableClose: true,
-  });
-}
-else{
-  return true
-  console.log(result)
+  handleCognito(error, result) {
+    if (error != null) {
+      console.log(error);
 
-}
-  }
-  signup(){
-    const addIngredientDialogRef = this.dialog.open(
-      ConfSingUpPopupComponent,
-      {
-        data: {
-          message: 'hello',
-        },
+      this.errorMessage = {
+        message: error,
+        title: 'Login Error',
+      };
+      const finished = this.dialog.open(ErrorPopUpComponent, {
+        data: this.errorMessage,
         disableClose: true,
-      }
-    );
-    addIngredientDialogRef.afterClosed().subscribe((data) => {
+      });
+    } else {
+      return true;
+      console.log(result);
+    }
+  }
+  signup() {
+    const addIngredientDialogRef = this.dialog.open(ConfSingUpPopupComponent, {
+      data: {
+        message: 'hello',
+      },
+      disableClose: true,
     });
+    addIngredientDialogRef.afterClosed().subscribe((data) => {});
   }
   ngDestroy() {
     this.unsubscribe.next(false);
     this.unsubscribe.complete();
+  }
+  enterKey(event) {
+    console.log(event);
+    if (event.keyCode === 13) {
+      this.login();
+    }
   }
 }

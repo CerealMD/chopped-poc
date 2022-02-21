@@ -29,11 +29,9 @@ export class NewPairingDialogComponent implements OnInit {
       if (this.pairingItem1 !== '' && this.pairingItem1 !== undefined) {
         if (this.data.proccess === 'Add') {
           if (this.pairingItem2 !== '' && this.pairingItem2 !== undefined) {
-            console.log(this.data.proccess);
-            await this.addPairing(this.pairingItem1, this.pairingItem2);
-            console.log('switch');
-            await this.addPairing(this.pairingItem2, this.pairingItem1);
-            console.log('reload');
+
+            await this.addPairing(this.pairingItem1, this.pairingItem2, 1);
+
             this.dialogRef.close(true);
           }
         } else if (this.data.proccess === 'Delete') {
@@ -58,7 +56,7 @@ export class NewPairingDialogComponent implements OnInit {
         return;
       });
   }
-  async addPairing(item1: any, item2: any) {
+  async addPairing(item1: any, item2: any, num) {
     let checkAlreadyWorked = 0;
     if (this.data.array.length === 0) {
       let newFood = {
@@ -131,6 +129,9 @@ export class NewPairingDialogComponent implements OnInit {
             });
         }
       });
+    }
+    if(num > 0){
+      this.addPairing(item2, item1, 0)
     }
   }
   ngDestroy() {

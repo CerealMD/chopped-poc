@@ -29,10 +29,7 @@ export class NewReplaceDialogComponent implements OnInit {
         if (this.data.proccess === 'Add') {
           if (this.replacingItem2 !== '' && this.replacingItem2 !== undefined) {
             console.log(this.data.proccess);
-            await this.addReplacing(this.replacingItem1, this.replacingItem2);
-            console.log('switch');
-            await this.addReplacing(this.replacingItem2, this.replacingItem1);
-            console.log('reload');
+            await this.addReplacing(this.replacingItem1, this.replacingItem2, 1);
             this.dialogRef.close(true);
           }
         } else if (this.data.proccess === 'Delete') {
@@ -56,7 +53,7 @@ export class NewReplaceDialogComponent implements OnInit {
         return;
       });
   }
-  addReplacing(item1: any, item2: any) {
+  addReplacing(item1: any, item2: any, num) {
     let checkAlreadyWorked = 0;
     if (this.data.array.length === 0) {
       let newFood = {
@@ -126,6 +123,9 @@ export class NewReplaceDialogComponent implements OnInit {
             return;
         }
       });
+    }
+    if(num > 0){
+      this.addReplacing(item2, item1, 0)
     }
   }
   ngDestroy() {

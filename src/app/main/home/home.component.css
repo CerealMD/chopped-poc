@@ -9,7 +9,7 @@
 }
 
 .paragraph{
-  text-align: center;
+  /* text-align: center; */
   color: white;
   padding: 0% 2%;
   height: 99%;
@@ -26,8 +26,8 @@
   }
 }
 .titleText{
-  font-size: 4vh;
+  font-size: 50px;
 }
 .textText{
-  font-size: 2vh;
+  font-size: 25px;
 }

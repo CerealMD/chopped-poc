@@ -1,127 +1,207 @@
-.mainContainer{
-    text-align: center;
-    padding: 4%;
-    font-size: 3vh;
+.mainContainer {
+  text-align: center;
+  padding: 4%;
+  font-size: 3vh;
 }
 .glow {
-    font-size: 80px;
-    color: #fff;
-    text-align: center;
-    animation: glow 1s ease-in-out infinite alternate;
-  }
-  
-  @keyframes glow {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073, 0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
-    }
-    
-    to {
-      text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6, 0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
-    }
+  font-size: 80px;
+  color: #fff;
+  text-align: center;
+  animation: glow 1s ease-in-out infinite alternate;
+}
+
+@keyframes glow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #e60073,
+      0 0 40px #e60073, 0 0 50px #e60073, 0 0 60px #e60073, 0 0 70px #e60073;
   }
 
-  .listGlow {
-    font-size: 35px;
-    color: #fff;
-    text-align: center;
-    animation: listGlow 1s ease-in-out infinite alternate;
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #ff4da6, 0 0 40px #ff4da6,
+      0 0 50px #ff4da6, 0 0 60px #ff4da6, 0 0 70px #ff4da6, 0 0 80px #ff4da6;
   }
-  
-  @keyframes listGlow {
-    from {
-      text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2a00e6, 0 0 40px #2a00e6, 0 0 50px #2a00e6, 0 0 60px #2a00e6, 0 0 70px #2a00e6;
-    }
-    
-    to {
-      text-shadow: 0 0 20px #fff, 0 0 30px #4d59ff, 0 0 40px #4d59ff, 0 0 50px #4d59ff, 0 0 60px #4d59ff, 0 0 70px #4d59ff, 0 0 80px #4d59ff;
-    }
-  }
-  .numDropDown{
-      float: right
-  }
-  .marginLeftItem{
-      width: 195px;
-      margin: 1%;
-  }
-  .showListItems{
-      text-align: center;
-  }
-  .newSection{
-      padding-top: 2%;
-      padding-bottom: 4%;
-  }
-  .itemSpacing{
-      padding: 2% 0px;
-  }
-  .showButton{
-    margin: 0px 5%;
-    text-align: center;
-  }
-  :host::ng-deep.mat-select-value-text {
-    color: white;
+}
+
+.listGlow {
+  font-size: 35px;
+  color: #fff;
+  text-align: center;
+  animation: listGlow 1s ease-in-out infinite alternate;
+}
+
+@keyframes listGlow {
+  from {
+    text-shadow: 0 0 10px #fff, 0 0 20px #fff, 0 0 30px #2a00e6,
+      0 0 40px #2a00e6, 0 0 50px #2a00e6, 0 0 60px #2a00e6, 0 0 70px #2a00e6;
   }
 
-  :root {
-    --dark: rgba(0, 0, 0, 0.8);
+  to {
+    text-shadow: 0 0 20px #fff, 0 0 30px #4d59ff, 0 0 40px #4d59ff,
+      0 0 50px #4d59ff, 0 0 60px #4d59ff, 0 0 70px #4d59ff, 0 0 80px #4d59ff;
   }
-  html,body{
-    background:#000;
-    margin:0;
-  }
-  .centered{
-    width:400px;
-    height:400px;
-    position:absolute;
-    top:50%;
-    left:50%;
-    transform:translate(-50%,-50%);
-  }
-  .blob-1,.blob-2{
-    width:70px;
-    height:70px;
-    position:absolute;
-    background:#000;
-    border-radius:50%;
-    top:50%;left:50%;
-    transform:translate(-50%,-50%);
-  }
-  .blob-1{
-    left:20%;
-    animation:osc-l 2.5s ease infinite;
-  }
-  .blob-2{
-    left:80%;
-    animation:osc-r 2.5s ease infinite;
-    background:#0ff;
-  }
-  @keyframes osc-l{
-    0%{left:20%;}
-    50%{left:50%;}
-    100%{left:20%;}
-  }
-  @keyframes osc-r{
-    0%{left:80%;}
-    50%{left:50%;}
-    100%{left:80%;}
-  }
+}
+.numDropDown {
+  float: right;
+}
+.marginLeftItem {
+  width: 195px;
+  margin: 1%;
+}
+.showListItems {
+  text-align: center;
+}
+.newSection {
+  padding-top: 2%;
+  padding-bottom: 4%;
+}
+.itemSpacing {
+  padding: 2% 0px;
+  cursor: pointer;
+}
+.showButton {
+  margin: 0px 5%;
+  text-align: center;
+}
+:host::ng-deep.mat-select-value-text {
+  color: white;
+}
 
-  .fullListView{
-    height: 40vh;
-    overflow-y: auto;
+:root {
+  --dark: rgba(0, 0, 0, 0.8);
+}
+html,
+body {
+  background: #000;
+  margin: 0;
+}
+.centered {
+  width: 400px;
+  height: 400px;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.blob-1,
+.blob-2 {
+  width: 70px;
+  height: 70px;
+  position: absolute;
+  background: #000;
+  border-radius: 50%;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+}
+.blob-1 {
+  left: 20%;
+  animation: osc-l 2.5s ease infinite;
+}
+.blob-2 {
+  left: 80%;
+  animation: osc-r 2.5s ease infinite;
+  background: #0ff;
+}
+@keyframes osc-l {
+  0% {
+    left: 20%;
   }
-  @media screen and (max-height: 770px) {
-    .fullListView{
-      height: 30vh;
+  50% {
+    left: 50%;
+  }
+  100% {
+    left: 20%;
+  }
+}
+@keyframes osc-r {
+  0% {
+    left: 80%;
+  }
+  50% {
+    left: 50%;
+  }
+  100% {
+    left: 80%;
+  }
+}
+
+.fullListView {
+  height: 40vh;
+  overflow-y: auto;
+}
+@media screen and (max-height: 770px) {
+  .fullListView {
+    height: 30vh;
+  }
+}
+@media screen and (max-height: 650px) {
+  .fullListView {
+    height: 25vh;
+  }
+}
+@media screen and (max-height: 600px) {
+  .fullListView {
+    height: 20vh;
+  }
+}
+.fourButtons {
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  grid-template-rows: 50px;
+  grid-gap: 10px;
+  justify-items: center;
+  margin-bottom: 3%;
+}
+.twoButtons{
+  text-align: center;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: 50px;
+  grid-gap: 10px;
+  justify-items: center;
+  margin-bottom: 3%;
+}
+:host ::ng-deep .mat-form-field-underline {
+  display: none;
+}
+:host ::ng-deep .mat-form-field-flex {
+  height: 100%;
+  padding: 0px !important;
+}
+:host ::ng-deep .mat-form-field-wrapper {
+  height: 100%;
+}
+.h100 {
+  height: 100%;
+}
+.shuffleButton{
+  margin-top: 15px;
+}
+@media screen and (max-width: 1000px) {
+  .fourButtons {
+  grid-template-rows: 50px 50px;
+  grid-template-columns: 1fr 1fr;
+  }
+}
+@media screen and (min-width: 800px) {
+  .fullListView {
+    display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr;
+  }
+  .onefullListView {
+  grid-template-columns: 1fr;
+  }
+  .twofullListView {
+    grid-template-columns: 1fr 1fr;
     }
+    .threefullListView {
+      grid-template-columns: 1fr 1fr 1fr;
+      }
+}
+@media screen and (max-width: 600px) {
+  .fourButtons {
+  grid-template-rows: 50px 50px 50px 50px;
+  grid-template-columns: 1fr;
   }
-  @media screen and (max-height: 650px) {
-    .fullListView{
-      height: 25vh;
-    }
-  }
-  @media screen and (max-height: 600px) {
-    .fullListView{
-      height: 20vh;
-    }
-  }
- 
+}

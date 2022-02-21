@@ -5,6 +5,7 @@ import { Subject, takeUntil } from 'rxjs';
 import { AddNewAnswerPopUpComponent } from 'src/app/background-components/components/add-new-answer-pop-up/add-new-answer-pop-up.component';
 import { AddNewIngredientPopUpComponent } from 'src/app/background-components/components/add-new-ingredient-pop-up/add-new-ingredient-pop-up.component';
 import { ErrorPopUpComponent } from 'src/app/background-components/components/error-pop-up/error-pop-up.component';
+import { AmpService } from 'src/app/background-components/services/ampService';
 import { dbConnectionService } from 'src/app/background-components/services/callDbConnection';
 export class foodItem {
   public statusFlag: boolean;
@@ -29,6 +30,8 @@ export class LandingPageComponent implements OnInit {
   selectedValue: any;
   numbers: any;
   showItems = false;
+  isAdmin = this.ampService.isAdmin
+  isTest_Account = this.ampService.isTest_Account
   joke;
   ingredientsLists: any;
   foodItem: any;
@@ -39,7 +42,7 @@ export class LandingPageComponent implements OnInit {
   subusername: any;
   constructor(
     public dialog: MatDialog,
-    public router: Router,
+    public router: Router,public ampService: AmpService,
     private dbConnection: dbConnectionService
   ) {}
 
@@ -176,6 +179,27 @@ export class LandingPageComponent implements OnInit {
   ngDestroy() {
     this.unsubscribe.next(false);
     this.unsubscribe.complete();
+  }
+  CheckAmount(num){
+    if(num == 1 ){
+return 'onefullListView';
+    }else if(num == 3){
+      return 'threefullListView';
+
+    }else if(num ==2 ){
+      return 'twofullListView';
+
+    }else{
+      return 'fullListView';
+    }
+  }
+  userCheck(){
+    if(this.isTest_Account){
+      return 'twoButtons'
+    }
+    else{
+      return 'fourButtons'
+    }
   }
 }
 

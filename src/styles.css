@@ -21,3 +21,11 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
     max-height: 80vh;
     /* width: 55%; */
 }
+@media screen and (min-width: 500px) {
+    .signUpDialog{
+        width: 300px;
+    }
+    .showPairingDialog{
+        width: 300px;
+    }
+  }

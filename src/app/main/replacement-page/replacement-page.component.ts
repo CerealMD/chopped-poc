@@ -6,6 +6,7 @@ import { MatTableDataSource } from '@angular/material/table';
 import { Router } from '@angular/router';
 import Amplify from '@aws-amplify/core';
 import { Subject, takeUntil } from 'rxjs';
+import { ErrorPopUpComponent } from 'src/app/background-components/components/error-pop-up/error-pop-up.component';
 import { NewReplaceDialogComponent } from 'src/app/background-components/components/new-replace-dialog/new-replace-dialog.component';
 import { ShowPairingDialogComponent } from 'src/app/background-components/components/show-pairing-dialog/show-pairing-dialog.component';
 import { AmpService } from 'src/app/background-components/services/ampService';
@@ -24,6 +25,8 @@ export class ReplacementPageComponent implements OnInit {
   pairingArray: any;
   dataSource: any;
   isAdmin = this.ampService.isAdmin
+  isTest_Account = this.ampService.isTest_Account
+  isBaseUser = this.ampService.isBaseUser
   displayedColumns = ['item'];
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
   @ViewChild(MatSort) sort: MatSort | undefined;
@@ -70,6 +73,20 @@ export class ReplacementPageComponent implements OnInit {
     }
   }
   popUpAnswer(row) {
+    if(!this.isAdmin && !this.isBaseUser){
+      const addIngredientDialogRef = this.dialog.open(
+        ErrorPopUpComponent,
+        {
+          data: {
+            message: 'Please contact admin to upgrade your account to see this information'
+          },
+          disableClose: true
+        }
+      );
+      addIngredientDialogRef.afterClosed().subscribe((data) => {
+      });
+    }
+    else{
     const addIngredientDialogRef = this.dialog.open(
       ShowPairingDialogComponent,
       {
@@ -82,7 +99,7 @@ export class ReplacementPageComponent implements OnInit {
       }
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
-    });
+    });}
   }
   newPairing(){
     const addIngredientDialogRef = this.dialog.open(

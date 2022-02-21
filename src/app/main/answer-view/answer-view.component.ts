@@ -8,6 +8,7 @@ import { dbConnectionService } from 'src/app/background-components/services/call
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { AnswerPerOptionComponent } from 'src/app/background-components/components/answer-per-option/answer-per-option.component';
+import { AmpService } from 'src/app/background-components/services/ampService';
 
 @Component({
   selector: 'app-answer-view',
@@ -19,7 +20,7 @@ export class AnswerViewComponent implements OnInit {
   allResponses: any;
   displayedColumns = ['username', 'itemsList'];
   columnsToDisplay = ['username', 'itemsList'];
-
+  isTest_Account = this.ampService.isTest_Account
   dataSource;
   @ViewChild(MatSort) sort: MatSort | undefined;
   @ViewChild(MatPaginator) paginator: MatPaginator | undefined;
@@ -29,6 +30,7 @@ export class AnswerViewComponent implements OnInit {
   constructor(
     public dialog: MatDialog,
     public router: Router,
+    public ampService: AmpService,
     private dbConnection: dbConnectionService
   ) {}
 

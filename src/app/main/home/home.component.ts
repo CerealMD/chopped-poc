@@ -58,6 +58,7 @@ export class HomeComponent implements OnInit {
           message: 'hello',
         },
         disableClose: true,
+        panelClass: 'signUpDialog'
       }
     );
     addIngredientDialogRef.afterClosed().subscribe((data) => {
